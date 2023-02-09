@@ -1,0 +1,19 @@
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 40px;
+}
+
+@media (max-width: 1999px) {
+  .App {
+    min-width: 1280px;
+    margin: 0;
+  }
+}
+
+.AppCards {
+  display: flex;
+  justify-content: space-between;
+  width: 1240px;
+}

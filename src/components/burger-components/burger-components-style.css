@@ -1,0 +1,24 @@
+.BurgerComponents {
+    display: flex;
+    flex-direction: column;
+    max-height: 656px;
+    height: 656px;
+    margin-left: 16px;
+}
+
+/* FireFox */
+.BurgerCenter {
+    overflow-y: scroll;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+}
+
+/* WebKit and Chromiums */
+.BurgerCenter::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.BurgerCenter::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}

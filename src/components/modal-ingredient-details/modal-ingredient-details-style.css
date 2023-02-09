@@ -1,0 +1,21 @@
+.ModalIngredientDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ModalIngredientOptions {
+    display: flex;
+    justify-content: space-between;
+    width: 520px;
+    height: 56px;
+    margin-bottom: 60px;
+}
+
+.ModalIngredientOption {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}

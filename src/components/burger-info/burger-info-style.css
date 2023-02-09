@@ -1,0 +1,6 @@
+.BurgerInfo {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 40px 16px auto
+}

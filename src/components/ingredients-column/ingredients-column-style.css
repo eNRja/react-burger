@@ -1,0 +1,4 @@
+.IngredientsColumn {
+    display: flex;
+    flex-wrap: wrap;
+}
