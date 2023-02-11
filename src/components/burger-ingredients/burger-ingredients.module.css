@@ -6,6 +6,8 @@
 
 /* FireFox */
 .IngredientColumns {
+    margin-top: 32px;
+    margin-bottom: 52px;
     overflow-y: scroll;
     height: 716px;
     scrollbar-color: #8585AD #2F2F37;

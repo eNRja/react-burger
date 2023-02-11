@@ -1,6 +1,6 @@
 import React from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import './ingredient-item-styles.css';
+import style from './ingredient-item.module.css';
 import Modal from '../modal/modal';
 
 export default function IngredientItem({ element }) {
@@ -17,10 +17,10 @@ export default function IngredientItem({ element }) {
     return (
         <>
             {modal && <Modal onClose={closeModal} element={element} />}
-            <div className='IngredientItem' onClick={openModal}>
-                <div className="IngredientCounter text text_type_digits-default">1</div>
-                <img src={element.image} alt={element.name} className="IngredientImage"></img>
-                <div className="IngredientPrice mt-1 mb-1">
+            <div className={style.IngredientItem} onClick={openModal}>
+                <div className={`${style.IngredientCounter} text text_type_digits-default`}>1</div>
+                <img className={style.IngredientImage} src={element.image} alt={element.name}></img>
+                <div className={style.IngredientPrice}>
                     <span className="text text_type_digits-default mr-1 mb-1">{element.price}</span>
                     <CurrencyIcon type="primary" />
                 </div>

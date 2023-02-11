@@ -1,11 +1,11 @@
 import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import './slices-style.css';
+import style from './slices.module.css';
 
 export default function Slices({ element, topBottom }) {
     let types = undefined;
     let isLockeds = false;
-    let classNames = "Slices";
+    let classNames = style.Slices;
     let extraClasses = "";
     let topBottomText = "";
     {
@@ -27,18 +27,16 @@ export default function Slices({ element, topBottom }) {
     }
 
     return (
-        <>
-            <div className={classNames}>
-                {!topBottom && <DragIcon type="primary" />}
-                <ConstructorElement
-                    type={types}
-                    isLocked={isLockeds}
-                    text={`${element.name}${' '}${topBottomText}`}
-                    price={element.price}
-                    thumbnail={element.image_mobile}
-                    extraClass={extraClasses}
-                />
-            </div>
-        </>
+        <div className={classNames}>
+            {!topBottom && <DragIcon type="primary" />}
+            <ConstructorElement
+                type={types}
+                isLocked={isLockeds}
+                text={`${element.name}${' '}${topBottomText}`}
+                price={element.price}
+                thumbnail={element.image_mobile}
+                extraClass={extraClasses}
+            />
+        </div>
     )
 }
