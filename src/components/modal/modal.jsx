@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import style from './modal.module.css'
-import ModalOrderDetails from '../modal-order-details/modal-order-details'
-import ModalIngredientDetails from '../modal-ingredient-details/modal-ingredient-details'
+import style from './modal.module.css';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const modals = document.querySelector("#modals");
 
@@ -29,10 +30,10 @@ const Modal = ({ onClose, order, element }) => {
                     </h1>
                     <button className={style.ModalEscBtn} onClick={onClose}></button>
                 </div>
-                {order && <ModalOrderDetails />}
-                {element && <ModalIngredientDetails element={element} />}
+                {order && <OrderDetails />}
+                {element && <IngredientDetails element={element} />}
             </div >
-            <div className={style.Overlay} onClick={onClose}></div>
+            <ModalOverlay onClose={onClose}/>
         </div >,
         modals
     );

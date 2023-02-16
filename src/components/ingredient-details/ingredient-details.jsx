@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './modal-ingredient-details.module.css'
+import style from './ingredient-details.module.css'
 
-const ModalIngredientDetails = ({element}) => {
+const IngredientDetails = ({element}) => {
     console.log(element)
     return (
         <div className={style.ModalIngredientDetails}>
@@ -30,4 +30,4 @@ const ModalIngredientDetails = ({element}) => {
     )
 };
 
-export default ModalIngredientDetails;
+export default IngredientDetails;

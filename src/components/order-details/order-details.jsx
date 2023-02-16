@@ -1,7 +1,7 @@
 import React from 'react';
-import style from './modal-order-details.module.css'
+import style from './order-details.module.css'
 
-const ModalOrderDetails = () => {
+const OrderDetails = () => {
     return (
         <div className={style.ModalOrderDetails}>
             <h2 className={`${style.ModalOrderTitle} text text_type_digits-large`}>034536</h2>
@@ -13,4 +13,4 @@ const ModalOrderDetails = () => {
     )
 };
 
-export default ModalOrderDetails;
+export default OrderDetails;
