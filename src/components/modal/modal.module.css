@@ -1,0 +1,53 @@
+.Modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ModalBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 720px;
+    background: #1C1C21;
+    border: 1px solid rgba(76, 76, 255, 0.2);
+    box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+    border-radius: 40px;
+}
+
+.ModalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    width: 640px;
+    margin: 44px auto 0;
+}
+
+.ModalTitle {
+    margin: 0;
+    padding: 0;
+}
+
+.ModalEscBtn {
+    width: 24px;
+    height: 24px;
+    background-image: url(../../image/Stroke.svg);
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    transition: 0.5s;
+}
+
+.ModalEscBtn:hover {
+    opacity: 0.7;
+}

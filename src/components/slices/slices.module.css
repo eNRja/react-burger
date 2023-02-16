@@ -1,0 +1,11 @@
+.Slices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    margin-right: 6px;
+}
+
+.Slices:first-child {
+    margin-top: 0;
+}
