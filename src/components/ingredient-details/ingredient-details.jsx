@@ -1,8 +1,8 @@
 import React from 'react';
-import style from './ingredient-details.module.css'
+import style from './ingredient-details.module.css';
+import PropType from "prop-types";
 
 const IngredientDetails = ({element}) => {
-    console.log(element)
     return (
         <div className={style.ModalIngredientDetails}>
             <img src={element.image_large} alt={element.name}></img>
@@ -29,5 +29,22 @@ const IngredientDetails = ({element}) => {
         </div>
     )
 };
+
+IngredientDetails.propTypes = {
+    element: PropType.shape({
+        __v: PropType.number.isRequired,
+        _id: PropType.string.isRequired,
+        calories: PropType.number.isRequired,
+        carbohydrates: PropType.number.isRequired,
+        fat: PropType.number.isRequired,
+        image: PropType.string.isRequired,
+        image_large: PropType.string.isRequired,
+        image_mobile: PropType.string.isRequired,
+        name: PropType.string.isRequired,
+        price: PropType.number.isRequired,
+        proteins: PropType.number.isRequired,
+        type: PropType.string.isRequired,
+    })
+}
 
 export default IngredientDetails;

@@ -4,8 +4,13 @@
     align-items: center;
     margin-top: 16px;
     margin-right: 6px;
+    list-style-type: none;
 }
 
 .Slices:first-child {
     margin-top: 0;
+}
+
+.Slices:hover {
+    cursor: grab;
 }

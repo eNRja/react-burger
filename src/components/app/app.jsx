@@ -3,26 +3,20 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import { getIngredients } from '../utils/api';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-
-  React.useEffect(() => {
-    getIngredients()
-      .then((data) => setIngredients(...ingredients, data))
-      .catch(err => console.log(err));
-  }, [])
 
   return (
     <div className={styles.App}>
-        <AppHeader />
-        {ingredients.length !== 0 &&
-          < main className={styles.AppCards}>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={ingredients} />
-          </main>
-        }
+      <AppHeader />
+      <DndProvider backend={HTML5Backend}>
+        < main className={styles.AppCards}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </main>
+      </DndProvider>
     </div >
   );
 }

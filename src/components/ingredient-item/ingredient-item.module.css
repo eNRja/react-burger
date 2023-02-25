@@ -6,6 +6,7 @@
     height: 208px;
     width: 272px;
     margin-bottom: 32px;
+    list-style: none;
 }
 
 .IngredientItem:nth-child(2n) {
@@ -41,4 +42,8 @@
     display: flex;
     margin-top: 4px;
     margin-bottom: 4px;
+}
+
+.IngredientName {
+    text-align: center;
 }
