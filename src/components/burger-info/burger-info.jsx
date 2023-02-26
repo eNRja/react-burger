@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-info.module.css'
 import Modal from '../modal/modal';
 import { BigCurrencyIcon } from '../big-currency-icon/big-currency-icon';
-import { makeOrderApi } from '../utils/api';
-import { ORDER_ADD } from '../../services/actions/order'
+import { sendIngredients } from '../../services/actions/order';
+import { ORDER_CLOSE } from '../../services/actions/order'
 
 export default function BurgerInfo() {
     const dispatch = useDispatch();
@@ -13,17 +13,22 @@ export default function BurgerInfo() {
     const burgerIngredient = items.map((item) => item._id)
     const [modal, setModal] = React.useState(false);
     const calculation = useMemo(() => calc(items, bun), [items, bun]);
+    const { setmodal } = useSelector(state => state.order);
 
-    const openModal = () => { bun._id &&
-        burgerIngredient.push(bun._id)
-        makeOrderApi(burgerIngredient)
-            .then((data) => {
-                setModal(true);
-                dispatch({
-                    type: ORDER_ADD,
-                    ...data,
-                })
+    useEffect(() => {
+        if (setmodal === true) {
+            setModal(true);
+            dispatch({
+                type: ORDER_CLOSE
             })
+        }
+    }, [setmodal]);
+
+
+    const openModal = () => {
+        bun._id &&
+            burgerIngredient.push(bun._id)
+        dispatch(sendIngredients(burgerIngredient));
     };
 
     const closeModal = () => {

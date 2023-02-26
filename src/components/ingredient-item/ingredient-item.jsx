@@ -6,6 +6,7 @@ import style from './ingredient-item.module.css';
 import Modal from '../modal/modal';
 import { useDrag } from "react-dnd";
 import PropType from "prop-types";
+import { ingredientPropType } from '../../utils/prop-types';
 import { MODAL_INGREDIENT_ADD, MODAL_INGREDIENT_DELETE } from '../../services/actions/modal-ingredient'
 
 export default function IngredientItem({ element, setCurrent }) {
@@ -18,9 +19,9 @@ export default function IngredientItem({ element, setCurrent }) {
         threshold: 0
     });
 
-    type === "bun" && React.useEffect(() => {
-        bunInView === false && setCurrent("two");
-        bunInView === true && setCurrent("one");
+    React.useEffect(() => {
+        type === "bun" && bunInView === false && setCurrent("two");
+        type === "bun" && bunInView === true && setCurrent("one");
     }, [bunInView]);
 
     const [{ opacity }, dragRef] = useDrag({
@@ -71,18 +72,5 @@ export default function IngredientItem({ element, setCurrent }) {
 
 IngredientItem.propTypes = {
     setCurrent: PropType.func.isRequired,
-    element: PropType.shape({
-        __v: PropType.number.isRequired,
-        _id: PropType.string.isRequired,
-        calories: PropType.number.isRequired,
-        carbohydrates: PropType.number.isRequired,
-        fat: PropType.number.isRequired,
-        image: PropType.string.isRequired,
-        image_large: PropType.string.isRequired,
-        image_mobile: PropType.string.isRequired,
-        name: PropType.string.isRequired,
-        price: PropType.number.isRequired,
-        proteins: PropType.number.isRequired,
-        type: PropType.string.isRequired,
-    })
+    element: ingredientPropType
 }

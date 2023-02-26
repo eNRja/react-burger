@@ -5,6 +5,7 @@ import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropType from "prop-types";
+import { ingredientPropType } from '../../utils/prop-types';
 
 
 const modals = document.querySelector("#modals");
@@ -15,9 +16,7 @@ const Modal = ({ onClose, order, element }) => {
         const handleEsc = (event) => {
             event.key === "Escape" && onClose();
         };
-
         document.addEventListener("keydown", handleEsc);
-
         return () => {
             document.removeEventListener("keydown", handleEsc);
         }
@@ -28,8 +27,8 @@ const Modal = ({ onClose, order, element }) => {
             <div className={style.ModalBlock}>
                 <div className={style.ModalHeader}>
                     <h1 className={`${style.ModalTitle} text text_type_main-large`}>
-                        {order && ""}
-                        {element && "Детали ингредиента"}
+                        {order === true}
+                        {element !== undefined}
                     </h1>
                     <button className={style.ModalEscBtn} onClick={onClose}></button>
                 </div>
@@ -43,22 +42,9 @@ const Modal = ({ onClose, order, element }) => {
 };
 
 Modal.propTypes = {
-    order: PropType.bool.isRequired,
+    order: PropType.bool,
     onClose: PropType.func.isRequired,
-    element: PropType.shape({
-        __v: PropType.number.isRequired,
-        _id: PropType.string.isRequired,
-        calories: PropType.number.isRequired,
-        carbohydrates: PropType.number.isRequired,
-        fat: PropType.number.isRequired,
-        image: PropType.string.isRequired,
-        image_large: PropType.string.isRequired,
-        image_mobile: PropType.string.isRequired,
-        name: PropType.string.isRequired,
-        price: PropType.number.isRequired,
-        proteins: PropType.number.isRequired,
-        type: PropType.string.isRequired,
-    })
+    element: ingredientPropType
 }
 
 export default Modal;

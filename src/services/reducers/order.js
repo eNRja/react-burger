@@ -1,7 +1,8 @@
-import { ORDER_ADD } from '../actions/order';
+import { ORDER_ADD, ORDER_CLOSE } from '../actions/order';
 
 const initialState = {
-    orderItems: []
+    orderItems: [],
+    setmodal: false
 };
 
 export const orderReducer = (state = initialState, action) => {
@@ -10,9 +11,18 @@ export const orderReducer = (state = initialState, action) => {
         case ORDER_ADD: {
             return {
                 ...state,
-                orderItems: [...state.orderItems, {action}]
+                orderItems: [...state.orderItems, {action}],
+                setmodal: true
             }
         }
+
+        case ORDER_CLOSE: {
+            return {
+                ...state,
+                setmodal: false
+            }
+        }
+
         default: {
             return state
         }

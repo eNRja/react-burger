@@ -3,7 +3,8 @@ import {
     DRAGGABLE_BUN_GET_ID,
     DRAGGABLE_INGREDIENT_DELETE,
     DRAGGABLE_BUN_DELETE,
-    DRAGGABLE_INGREDIENT_MOVE
+    DRAGGABLE_INGREDIENT_MOVE,
+    DRAGGABLE_INGREDIENTS_CLEAR
 } from "../actions/draggable-ingredients";
 
 const initialState = {
@@ -65,6 +66,15 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: newIngredients
+            }
+        }
+
+        case DRAGGABLE_INGREDIENTS_CLEAR: {
+            return {
+                ...state,
+                items: [],
+                bun: {},
+                dragIngredients: []
             }
         }
 

@@ -1,4 +1,12 @@
-import { GET_ITEMS_REQUEST, GET_ITEMS_SUCCESS, GET_ITEMS_FAILED, INCREASE_COUNTER, DECREASE_COUNTER, DECREASE_BUN } from '../actions/ingredients'
+import {
+    GET_ITEMS_REQUEST,
+    GET_ITEMS_SUCCESS,
+    GET_ITEMS_FAILED,
+    INCREASE_COUNTER,
+    DECREASE_COUNTER,
+    DECREASE_BUN,
+    RESET_COUNTER
+} from '../actions/ingredients'
 
 const initialState = {
     ingredientsRequest: false,
@@ -57,6 +65,15 @@ export const ingredientReducer = (state = initialState, action) => {
                 ...state,
                 ingredients: [...state.ingredients].map(item =>
                     item.type === "bun" ? { ...item, counter: 0 } : item
+                )
+            }
+        }
+
+        case RESET_COUNTER: {
+            return {
+                ...state,
+                ingredients: [...state.ingredients].map(item =>
+                    item && { ...item, counter: 0 }
                 )
             }
         }
