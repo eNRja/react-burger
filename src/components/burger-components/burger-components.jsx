@@ -29,7 +29,7 @@ export default function BurgerComponents() {
     });
 
     const onDelete = () => {
-        dispatch(deleteBun(dragIngredients.bun._id))
+        dispatch(deleteBun())
         dispatch(decreaseCounter(dragIngredients.bun._id))
     }
 

@@ -23,7 +23,7 @@ export function getDraggableIngredient(item) {
     }
 }
 
-export function deleteBun(id) {
+export function deleteBun() {
     return {
         type: DRAGGABLE_BUN_DELETE,
     }
