@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import style from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropType from "prop-types";
-import { ingredientPropType } from '../../utils/prop-types';
-
 
 const modals = document.querySelector("#modals");
 
@@ -38,9 +36,9 @@ const Modal = ({ onClose, titleModal, children }) => {
 };
 
 Modal.propTypes = {
-    order: PropType.bool,
-    onClose: PropType.func.isRequired,
-    element: ingredientPropType
+    titleModal: PropType.string,
+    onClose: PropType.func,
+    children: PropType.element
 }
 
 export default Modal;

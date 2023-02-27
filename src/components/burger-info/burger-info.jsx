@@ -43,9 +43,10 @@ export default function BurgerInfo() {
             <Button onClick={bun._id && openModal} extraClass="ml-10 pt-5 pb-5" htmlType="button" type="primary" size="medium">
                 Оформить заказ
             </Button>
-            {modal && <Modal onClose={closeModal} order={true}>
+            {modal && (<Modal onClose={closeModal}>
                 <OrderDetails />
-            </Modal>}
+            </Modal>
+            )}
         </div>
     )
 }

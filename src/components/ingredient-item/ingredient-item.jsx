@@ -53,9 +53,10 @@ export default function IngredientItem({ element, setCurrent }) {
 
     return (
         <>
-            {modal && <Modal onClose={closeModal} element={modalIngredients} titleModal="Детали ингредиента">
+            {modal && (<Modal onClose={closeModal} element={modalIngredients} titleModal="Детали ингредиента">
                 <IngredientDetails element={element} />
-            </Modal>}
+            </Modal>)
+            }
             <li style={{ opacity }} className={style.IngredientItem} onClick={openModal} ref={dragRef}>
                 {counter > 0 &&
                     <div className={`${style.IngredientCounter} text text_type_digits-default`}>
