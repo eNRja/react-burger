@@ -2,13 +2,11 @@ import React from 'react';
 import style from './burger-components.module.css';
 import Slices from '../slices/slices';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
-import { DRAGGABLE_BUN_DELETE } from '../../services/actions/draggable-ingredients';
-import { DECREASE_COUNTER } from '../../services/actions/ingredients';
+import { deleteBun } from '../../services/actions/draggable-ingredients';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
-import { INCREASE_COUNTER, DECREASE_BUN } from '../../services/actions/ingredients'
-import { DRAGGABLE_INGREDIENT_GET_ID, DRAGGABLE_BUN_GET_ID } from '../../services/actions/draggable-ingredients';
-import { v4 as uuidV4 } from "uuid";
+import { increaseCounter, decreaseBunCounter, decreaseCounter } from '../../services/actions/ingredients';
+import { getDraggableIngredient } from '../../services/actions/draggable-ingredients';
 
 export default function BurgerComponents() {
     const dispatch = useDispatch();
@@ -19,42 +17,20 @@ export default function BurgerComponents() {
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop(itemId) {
-            itemId.typeDragElement === "bun" ?
-                dispatch({
-                    type: DRAGGABLE_BUN_GET_ID,
-                    uuid: uuidV4(),
-                    ...itemId,
-                }) &&
-                dispatch({
-                    type: DECREASE_BUN,
-                    ...itemId,
-                }) &&
-                dispatch({
-                    type: INCREASE_COUNTER,
-                    ...itemId,
-                })
+        drop(item) {
+            item.typeDragElement === "bun" ?
+                dispatch(getDraggableIngredient(item)) &&
+                dispatch(decreaseBunCounter(item)) &&
+                dispatch(increaseCounter(item))
                 :
-                dispatch({
-                    type: DRAGGABLE_INGREDIENT_GET_ID,
-                    uuid: uuidV4(),
-                    ...itemId,
-                }) &&
-                dispatch({
-                    type: INCREASE_COUNTER,
-                    ...itemId,
-                })
+                dispatch(getDraggableIngredient(item)) &&
+                dispatch(increaseCounter(item))
         },
     });
 
     const onDelete = () => {
-        dispatch({
-            type: DRAGGABLE_BUN_DELETE,
-        }) &&
-            dispatch({
-                type: DECREASE_COUNTER,
-                _id: dragIngredients.bun._id,
-            })
+        dispatch(deleteBun(dragIngredients.bun._id))
+        dispatch(decreaseCounter(dragIngredients.bun._id))
     }
 
     return (

@@ -19,6 +19,8 @@ export function sendIngredients(burgerIngredient) {
                 dispatch({
                     type: RESET_COUNTER
                 })
+            }).catch(err => {
+                console.log(err)
             })
     }
 } 

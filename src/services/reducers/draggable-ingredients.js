@@ -1,6 +1,6 @@
 import {
-    DRAGGABLE_INGREDIENT_GET_ID,
-    DRAGGABLE_BUN_GET_ID,
+    GET_DRAGGABLE_INGREDIENT,
+    GET_DRAGGABLE_BUN,
     DRAGGABLE_INGREDIENT_DELETE,
     DRAGGABLE_BUN_DELETE,
     DRAGGABLE_INGREDIENT_MOVE,
@@ -16,7 +16,7 @@ const initialState = {
 export const draggableIngredientReducer = (state = initialState, action) => {
     switch (action.type) {
 
-        case DRAGGABLE_INGREDIENT_GET_ID: {
+        case GET_DRAGGABLE_INGREDIENT: {
             return {
                 ...state,
                 items: [...state.items, {
@@ -30,7 +30,7 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             }
         }
 
-        case DRAGGABLE_BUN_GET_ID: {
+        case GET_DRAGGABLE_BUN: {
             return {
                 ...state,
                 bun: {

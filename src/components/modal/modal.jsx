@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import style from './modal.module.css';
-import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
 import PropType from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
@@ -10,7 +8,7 @@ import { ingredientPropType } from '../../utils/prop-types';
 
 const modals = document.querySelector("#modals");
 
-const Modal = ({ onClose, order, element }) => {
+const Modal = ({ onClose, titleModal, children }) => {
 
     React.useEffect(() => {
         const handleEsc = (event) => {
@@ -27,13 +25,11 @@ const Modal = ({ onClose, order, element }) => {
             <div className={style.ModalBlock}>
                 <div className={style.ModalHeader}>
                     <h1 className={`${style.ModalTitle} text text_type_main-large`}>
-                        {order === true}
-                        {element !== undefined}
+                        {titleModal}
                     </h1>
                     <button className={style.ModalEscBtn} onClick={onClose}></button>
                 </div>
-                {order && <OrderDetails />}
-                {element && <IngredientDetails element={element} />}
+                {children}
             </div >
             <ModalOverlay onClose={onClose} />
         </div >,

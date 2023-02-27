@@ -15,16 +15,10 @@ export function getIngredients() {
         })
         getApiIngredients()
             .then(res => {
-                if (res && res.success) {
-                    dispatch({
-                        type: GET_ITEMS_SUCCESS,
-                        ingredients: res.data,
-                    })
-                } else {
-                    dispatch({
-                        type: GET_ITEMS_FAILED
-                    })
-                }
+                dispatch({
+                    type: GET_ITEMS_SUCCESS,
+                    ingredients: res.data,
+                })
             }).catch(err => {
                 dispatch({
                     type: GET_ITEMS_FAILED
@@ -32,3 +26,25 @@ export function getIngredients() {
             })
     }
 }
+
+export function increaseCounter(item) {
+    return {
+        type: INCREASE_COUNTER,
+        ...item,
+    }
+}
+
+export function decreaseBunCounter(item) {
+    return {
+        type: DECREASE_BUN,
+        ...item,
+    }
+}
+
+export function decreaseCounter(id) {
+    return {
+        type: DECREASE_COUNTER,
+        _id: id,
+    }
+}
+

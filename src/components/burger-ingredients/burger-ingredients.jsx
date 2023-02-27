@@ -9,28 +9,26 @@ export default function BurgerIngredients() {
     const [current, setCurrent] = React.useState('one')
     const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredient);
     const dispatch = useDispatch();
-    const bunTitleRef = React.createRef();
-    const sauceTitleRef = React.createRef();
-    const mainTitleRef = React.createRef();
+    const bunTabRef = React.useRef();
+    const sauceTabRef = React.useRef();
+    const mainTabRef = React.useRef();
 
     const moveToTitleBun = () => {
-        bunTitleRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
+        bunTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
         setCurrent('one');
     }
     const moveToTitleSauce = () => {
-        sauceTitleRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
+        sauceTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
         setCurrent('two');
     }
     const moveToTitleMain = () => {
-        mainTitleRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
+        mainTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
         setCurrent('three');
     }
 
     React.useEffect(() => {
         dispatch(getIngredients())
     }, [dispatch]);
-
-
 
     if (ingredientsFailed) {
         return <p>Произошла ошибка при получении данных</p>
@@ -52,12 +50,9 @@ export default function BurgerIngredients() {
                     </Tab>
                 </nav>
                 <div className={style.IngredientColumns}>
-                    <h2 id="idOne" className='mt-2 mb-6 text text_type_main-medium' ref={bunTitleRef}>Булки</h2>
-                    <IngredientsColumn ingredients={ingredients} columnTitle={"Булки"} setCurrent={setCurrent} />
-                    <h2 id="idTwo" className='mt-2 mb-6 text text_type_main-medium' ref={sauceTitleRef}>Соусы</h2>
-                    <IngredientsColumn ingredients={ingredients} columnTitle={"Соусы"} setCurrent={setCurrent} />
-                    <h2 id="idThree" className='mt-2 mb-6 text text_type_main-medium' ref={mainTitleRef}>Начинки</h2>
-                    <IngredientsColumn ingredients={ingredients} columnTitle={"Начинки"} setCurrent={setCurrent} />
+                    <IngredientsColumn ingredients={ingredients} columnTitle={"Булки"} setCurrent={setCurrent} tabRef={bunTabRef} />
+                    <IngredientsColumn ingredients={ingredients} columnTitle={"Соусы"} setCurrent={setCurrent} tabRef={sauceTabRef} />
+                    <IngredientsColumn ingredients={ingredients} columnTitle={"Начинки"} setCurrent={setCurrent} tabRef={mainTabRef} />
                 </div>
             </section>
         )

@@ -7,6 +7,7 @@ import Modal from '../modal/modal';
 import { useDrag } from "react-dnd";
 import PropType from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import { MODAL_INGREDIENT_ADD, MODAL_INGREDIENT_DELETE } from '../../services/actions/modal-ingredient'
 
 export default function IngredientItem({ element, setCurrent }) {
@@ -52,7 +53,9 @@ export default function IngredientItem({ element, setCurrent }) {
 
     return (
         <>
-            {modal && <Modal onClose={closeModal} element={modalIngredients} />}
+            {modal && <Modal onClose={closeModal} element={modalIngredients} titleModal="Детали ингредиента">
+                <IngredientDetails element={element} />
+            </Modal>}
             <li style={{ opacity }} className={style.IngredientItem} onClick={openModal} ref={dragRef}>
                 {counter > 0 &&
                     <div className={`${style.IngredientCounter} text text_type_digits-default`}>

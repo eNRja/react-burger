@@ -2,7 +2,8 @@ import { ORDER_ADD, ORDER_CLOSE } from '../actions/order';
 
 const initialState = {
     orderItems: [],
-    setmodal: false
+    setmodal: false,
+    orderFailed: false
 };
 
 export const orderReducer = (state = initialState, action) => {

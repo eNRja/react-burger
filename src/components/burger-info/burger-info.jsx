@@ -6,6 +6,7 @@ import Modal from '../modal/modal';
 import { BigCurrencyIcon } from '../big-currency-icon/big-currency-icon';
 import { sendIngredients } from '../../services/actions/order';
 import { ORDER_CLOSE } from '../../services/actions/order'
+import OrderDetails from '../order-details/order-details';
 
 export default function BurgerInfo() {
     const dispatch = useDispatch();
@@ -42,7 +43,9 @@ export default function BurgerInfo() {
             <Button onClick={bun._id && openModal} extraClass="ml-10 pt-5 pb-5" htmlType="button" type="primary" size="medium">
                 Оформить заказ
             </Button>
-            {modal && <Modal onClose={closeModal} order={true} />}
+            {modal && <Modal onClose={closeModal} order={true}>
+                <OrderDetails />
+            </Modal>}
         </div>
     )
 }
