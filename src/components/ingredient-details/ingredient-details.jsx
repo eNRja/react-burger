@@ -1,8 +1,8 @@
 import React from 'react';
-import style from './ingredient-details.module.css'
+import style from './ingredient-details.module.css';
+import { ingredientPropType } from '../../utils/prop-types';
 
 const IngredientDetails = ({element}) => {
-    console.log(element)
     return (
         <div className={style.ModalIngredientDetails}>
             <img src={element.image_large} alt={element.name}></img>
@@ -29,5 +29,9 @@ const IngredientDetails = ({element}) => {
         </div>
     )
 };
+
+IngredientDetails.propTypes = {
+    element: ingredientPropType
+}
 
 export default IngredientDetails;

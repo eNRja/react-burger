@@ -1,20 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import style from './modal.module.css';
-import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import PropType from "prop-types";
 
 const modals = document.querySelector("#modals");
 
-const Modal = ({ onClose, order, element }) => {
+const Modal = ({ onClose, titleModal, children }) => {
+
     React.useEffect(() => {
         const handleEsc = (event) => {
             event.key === "Escape" && onClose();
         };
-
         document.addEventListener("keydown", handleEsc);
-
         return () => {
             document.removeEventListener("keydown", handleEsc);
         }
@@ -25,18 +23,22 @@ const Modal = ({ onClose, order, element }) => {
             <div className={style.ModalBlock}>
                 <div className={style.ModalHeader}>
                     <h1 className={`${style.ModalTitle} text text_type_main-large`}>
-                        {order && ""}
-                        {element && "Детали ингредиента"}
+                        {titleModal}
                     </h1>
                     <button className={style.ModalEscBtn} onClick={onClose}></button>
                 </div>
-                {order && <OrderDetails />}
-                {element && <IngredientDetails element={element} />}
+                {children}
             </div >
-            <ModalOverlay onClose={onClose}/>
+            <ModalOverlay onClose={onClose} />
         </div >,
         modals
     );
 };
+
+Modal.propTypes = {
+    titleModal: PropType.string,
+    onClose: PropType.func,
+    children: PropType.element
+}
 
 export default Modal;
