@@ -1,0 +1,23 @@
+.RegisterMain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 480px;
+    margin-top: 180px;
+}
+
+.RegisterForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.RegisterButton {
+    color: #4C4CFF;
+    transition: 0.5s;
+}
+
+.RegisterButton:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}

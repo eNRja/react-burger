@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import style from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
@@ -8,7 +8,7 @@ const modals = document.querySelector("#modals");
 
 const Modal = ({ onClose, titleModal, children }) => {
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleEsc = (event) => {
             event.key === "Escape" && onClose();
         };

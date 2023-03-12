@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-info.module.css'
 import Modal from '../modal/modal';
@@ -10,11 +11,13 @@ import OrderDetails from '../order-details/order-details';
 
 export default function BurgerInfo() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { items, bun } = useSelector(state => state.ingredientList);
     const burgerIngredient = items.map((item) => item._id)
     const [modal, setModal] = React.useState(false);
     const calculation = useMemo(() => calc(items, bun), [items, bun]);
     const { setmodal } = useSelector(state => state.order);
+    const { user } = useSelector(state => state.login);
 
     useEffect(() => {
         if (setmodal === true) {
@@ -27,9 +30,12 @@ export default function BurgerInfo() {
 
 
     const openModal = () => {
-        bun._id &&
-            burgerIngredient.push(bun._id)
-        dispatch(sendIngredients(burgerIngredient));
+        if (user) {
+            bun._id && burgerIngredient.push(bun._id)
+            dispatch(sendIngredients(burgerIngredient));
+        } else {
+            navigate('/login')
+        }
     };
 
     const closeModal = () => {

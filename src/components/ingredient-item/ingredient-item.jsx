@@ -1,26 +1,22 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
+import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './ingredient-item.module.css';
-import Modal from '../modal/modal';
 import { useDrag } from "react-dnd";
 import PropType from "prop-types";
 import { ingredientPropType } from '../../utils/prop-types';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import { MODAL_INGREDIENT_ADD, MODAL_INGREDIENT_DELETE } from '../../services/actions/modal-ingredient'
 
 export default function IngredientItem({ element, setCurrent }) {
     const { _id, name, price, image, image_mobile, type, counter } = element;
     const typeDragElement = type;
-    const dispatch = useDispatch();
-    const modalIngredients = useSelector(state => state.modalIngredient);
+    const location = useLocation();
 
     const [bunRef, bunInView] = useInView({
         threshold: 0
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         type === "bun" && bunInView === false && setCurrent("two");
         type === "bun" && bunInView === true && setCurrent("one");
     }, [bunInView]);
@@ -33,43 +29,23 @@ export default function IngredientItem({ element, setCurrent }) {
         })
     });
 
-    const [modal, setModal] = React.useState(false);
-
-    const openModal = () => {
-        dispatch({
-            type: MODAL_INGREDIENT_ADD,
-            element
-        });
-        setModal(true);
-    };
-
-    const closeModal = () => {
-        dispatch({
-            type: MODAL_INGREDIENT_DELETE,
-            element
-        });
-        setModal(false);
-    }
-
     return (
         <>
-            {modal && (<Modal onClose={closeModal} element={modalIngredients} titleModal="Детали ингредиента">
-                <IngredientDetails element={element} />
-            </Modal>)
-            }
-            <li style={{ opacity }} className={style.IngredientItem} onClick={openModal} ref={dragRef}>
-                {counter > 0 &&
-                    <div className={`${style.IngredientCounter} text text_type_digits-default`}>
-                        {counter}
+            <Link to={`/modal/${_id}`} state={{ background: location }} className={style.Link} ref={dragRef}>
+                <li style={{ opacity }} className={style.IngredientItem}  >
+                    {counter > 0 &&
+                        <div className={`${style.IngredientCounter} text text_type_digits-default`}>
+                            {counter}
+                        </div>
+                    }
+                    <img className={style.IngredientImage} src={image} alt={name} ref={bunRef}></img>
+                    <div className={style.IngredientPrice}>
+                        <span className="text text_type_digits-default mr-1 mb-1">{price}</span>
+                        <CurrencyIcon type="primary" />
                     </div>
-                }
-                <img className={style.IngredientImage} src={image} alt={name} ref={bunRef}></img>
-                <div className={style.IngredientPrice}>
-                    <span className="text text_type_digits-default mr-1 mb-1">{price}</span>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <span className={`${style.IngredientName} text text_type_main-default`}>{name}</span>
-            </li>
+                    <span className={`${style.IngredientName} text text_type_main-default`}>{name}</span>
+                </li>
+            </Link>
         </>
     )
 }
