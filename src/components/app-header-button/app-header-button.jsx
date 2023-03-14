@@ -1,4 +1,3 @@
-import React from 'react';
 import style from './app-header-button.module.css'
 
 export default function AppHeaderButton(props) {
@@ -7,11 +6,11 @@ export default function AppHeaderButton(props) {
     const buttonText = props.buttonDefault === false ? "text_color_inactive" : "";
 
     return (
-        <a className={style.Button}>
+        <div className={style.Button} onClick={props.onClick}>
             <ButtonIcon type={buttonType} />
             <span className={`text text_type_main-default ml-2 ${buttonText}`}>
                 {props.buttonText}
             </span>
-        </a>
+        </div>
     )
 }

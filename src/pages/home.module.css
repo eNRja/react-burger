@@ -1,0 +1,19 @@
+.Home {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 40px;
+}
+
+@media (max-width: 1999px) {
+    .Home {
+        min-width: 1280px;
+        margin: 0;
+    }
+}
+
+.HomeCards {
+    display: flex;
+    justify-content: space-between;
+    width: 1240px;
+}

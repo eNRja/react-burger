@@ -25,4 +25,9 @@
 .AppHeaderSubBlock {
     display: flex;
 }
+
+.active {
+    color: #fff;
+    text-decoration: none;
+}
      

@@ -1,12 +1,12 @@
 .IngredientItem {
     display: flex;
-    position: relative;
+    /* position: relative; */
     flex-direction: column;
     align-items: center;
-    height: 208px;
+    /* height: 208px;
     width: 272px;
     margin-bottom: 32px;
-    list-style: none;
+    list-style: none; */
 }
 
 .IngredientItem:nth-child(2n) {
@@ -46,4 +46,19 @@
 
 .IngredientName {
     text-align: center;
+}
+
+.Link {
+    text-decoration: none;
+    color: #F2F2F3;
+    /* margin: 0;
+    padding: 0; */
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    height: 208px;
+    width: 272px;
+    margin-bottom: 32px;
+    list-style: none;
 }
