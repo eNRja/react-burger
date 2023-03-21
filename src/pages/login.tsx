@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './login.module.css';
@@ -28,7 +28,7 @@ export function LoginPage() {
         navigate('/forgot-password');
     };
 
-    const onSubmitLogin = function (event: React.SyntheticEvent) {
+    const onSubmitLogin = function (event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         dispatch(requestLogin(email, password));
         navigate(-1);

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
@@ -27,7 +27,7 @@ export function RegisterPage() {
         navigate('/login', { state: initialBreadcrumb });
     };
 
-    const onSubmitRegistration = (event: React.SyntheticEvent) => {
+    const onSubmitRegistration = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestRegistration(email, password, name));
     }

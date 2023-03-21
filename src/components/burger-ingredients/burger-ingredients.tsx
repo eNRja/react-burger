@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
-import { getIngredients } from '../../services/actions/ingredients';
+import { useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsColumn from '../ingredients-column/ingredients-column';
 import style from './burger-ingredients.module.css';
@@ -9,7 +8,7 @@ export default function BurgerIngredients() {
     const [current, setCurrent] = useState<string>('one')
     const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(state => state.ingredient);
 
-    const dispatch =  useAppDispatch();
+    const dispatch = useAppDispatch();
     const bunTabRef = useRef<HTMLHeadingElement>(null!);
     const sauceTabRef = useRef<HTMLHeadingElement>(null!);
     const mainTabRef = useRef<HTMLHeadingElement>(null!);
@@ -26,10 +25,6 @@ export default function BurgerIngredients() {
         mainTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
         setCurrent('three');
     }
-
-    useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch]);
 
     if (ingredientsFailed) {
         return <p>Произошла ошибка при получении данных</p>

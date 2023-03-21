@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './forgot-password.module.css';
@@ -16,7 +16,7 @@ export function ForogotPasswordPage() {
 
     const inputRef = useRef(null)
 
-    const onSubmitReset = (event: React.SyntheticEvent) => {
+    const onSubmitReset = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestForgotPassword(email, goToResetPasswordPage));
         dispatch(checkProtectResetPage(true));

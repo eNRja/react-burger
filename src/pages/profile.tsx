@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
@@ -70,7 +70,7 @@ export function ProfilePage() {
         dispatch(requestLogout());
     };
 
-    const onSubmitUpdateUser = (event: React.SyntheticEvent) => {
+    const onSubmitUpdateUser = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestUpdateUser(name, email, password));
         navigate('/');

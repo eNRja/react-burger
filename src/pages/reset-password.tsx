@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, FormEvent } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
@@ -12,7 +12,7 @@ export function ResetPasswordPage() {
     const [valueCoin, setValueCoin] = useState('');
     const inputRef = useRef(null);
     const [showPassword, setShowPassword] = useState<"password" | "text" | "email" | undefined>('password');
-    const { protectedResetPage } = useAppSelector((state: any) => state.forgotPassword);
+    const { protectedResetPage } = useAppSelector((state) => state.forgotPassword);
 
     const onClickLogin = () => {
         dispatch(checkProtectResetPage(false));
@@ -27,7 +27,7 @@ export function ResetPasswordPage() {
         }
     }
 
-    const onSubmitReset = (event: React.SyntheticEvent) => {
+    const onSubmitReset = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestResetPassword(valuePass, valueCoin));
         dispatch(checkProtectResetPage(false));

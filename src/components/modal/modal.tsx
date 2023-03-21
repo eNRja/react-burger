@@ -8,7 +8,7 @@ const modals = document.querySelector("#modals") as HTMLElement;
 const Modal = ({ onClose, titleModal, children } : {onClose: () => void, titleModal?: string, children?: JSX.Element}) => {
 
     useEffect(() => {
-        const handleEsc = (event: { key: string; }) => {
+        const handleEsc = (event: KeyboardEvent) => {
             event.key === "Escape" && onClose();
         };
         document.addEventListener("keydown", handleEsc);

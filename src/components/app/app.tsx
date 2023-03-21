@@ -17,6 +17,7 @@ import Modal from '../modal/modal'
 import { checkAuth } from '../../services/actions/login';
 import ModalContent from '../modal-content/modal-content';
 import { useAppDispatch } from '../../hooks/hooks';
+import { getIngredients } from '../../services/actions/ingredients';
 
 export default function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    dispatch(getIngredients())
     dispatch(checkAuth());
   }, [dispatch]);
 
