@@ -4,11 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './ingredient-item.module.css';
 import { useDrag } from "react-dnd";
-import PropType from "prop-types";
-import { ingredientPropType } from '../../utils/prop-types';
+import { IIngredient } from '../../utils/data';
 
-export default function IngredientItem({ element, setCurrent }) {
-    const { _id, name, price, image, image_mobile, type, counter } = element;
+export default function IngredientItem( {element, setCurrent} : {element: IIngredient, setCurrent : CallableFunction}) {
+    const {_id, name, price, image, image_mobile, type, counter = 0 } = element;
     const typeDragElement = type;
     const location = useLocation();
 
@@ -48,9 +47,4 @@ export default function IngredientItem({ element, setCurrent }) {
             </Link>
         </>
     )
-}
-
-IngredientItem.propTypes = {
-    setCurrent: PropType.func.isRequired,
-    element: ingredientPropType
 }

@@ -1,21 +1,15 @@
-import { useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
 import "./modal-content.module.css";
-import { getIngredients } from '../../services/actions/ingredients';
-import IngredientDetails from '../ingredient-details/ingredient-details'
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
 export default function ModalContent() {
-  const dispatch = useDispatch();
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredient);
+  const dispatch = useAppDispatch();
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(state => state.ingredient);
   const { ingredientId } = useParams();
-  const findElement = ingredients && ingredients.find(function (elem) {
+  const findElement = ingredients && ingredients.find(function (elem: { _id: string | undefined; }) {
     return elem._id === ingredientId;
   })
-
-  useEffect(() => {
-    dispatch(getIngredients())
-  }, [dispatch]);
 
   if (ingredientsFailed) {
     return <p>Произошла ошибка при получении данных</p>

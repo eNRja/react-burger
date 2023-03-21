@@ -1,12 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
 import { requestLogout, requestUpdateUser } from '../services/actions/login';
+import { RootState } from '../services/store'
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 export function ProfilePage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -14,13 +16,13 @@ export function ProfilePage() {
     const inputNameRef = useRef(null);
     const inputEmailRef = useRef(null);
     const inputPasswordRef = useRef(null);
-    const { user, passwordUser } = useSelector(state => state.login);
-    const [nameDisabled, useNameDisabled] = useState(true);
-    const [nameIcon, useNameIcon] = useState("EditIcon");
-    const [emailDisabled, useEmailDisabled] = useState(true);
-    const [emailIcon, useEmailIcon] = useState("EditIcon");
-    const [passwordDisabled, usePasswordDisabled] = useState(true);
-    const [passwordIcon, usePasswordIcon] = useState("EditIcon");
+    const { user, passwordUser } = useAppSelector((state: RootState) => state.login);
+    const [nameDisabled, setNameDisabled] = useState(true);
+    const [nameIcon, setNameIcon] = useState<keyof TICons | undefined>("EditIcon");
+    const [emailDisabled, setEmailDisabled] = useState(true);
+    const [emailIcon, setEmailIcon] = useState<keyof TICons | undefined>("EditIcon");
+    const [passwordDisabled, setPasswordDisabled] = useState(true);
+    const [passwordIcon, setPasswordIcon] = useState<keyof TICons | undefined>("EditIcon");
 
     useEffect(() => {
         if (user.success) {
@@ -32,31 +34,31 @@ export function ProfilePage() {
 
     const onIconEmailClick = () => {
         if (emailDisabled === true) {
-            useEmailIcon("CloseIcon");
-            useEmailDisabled(false);
+            setEmailIcon("CloseIcon");
+            setEmailDisabled(false);
         } else {
-            useEmailIcon("EditIcon");
-            useEmailDisabled(true);
+            setEmailIcon("EditIcon");
+            setEmailDisabled(true);
         }
     }
 
     const onIconPasswordClick = () => {
         if (passwordDisabled === true) {
-            usePasswordIcon("CloseIcon");
-            usePasswordDisabled(false);
+            setPasswordIcon("CloseIcon");
+            setPasswordDisabled(false);
         } else {
-            usePasswordIcon("EditIcon");
-            usePasswordDisabled(true);
+            setPasswordIcon("EditIcon");
+            setPasswordDisabled(true);
         }
     }
 
     const onIconNameClick = () => {
         if (nameDisabled === true) {
-            useNameIcon("CloseIcon");
-            useNameDisabled(false);
+            setNameIcon("CloseIcon");
+            setNameDisabled(false);
         } else {
-            useNameIcon("EditIcon");
-            useNameDisabled(true);
+            setNameIcon("EditIcon");
+            setNameDisabled(true);
         }
     }
 
@@ -68,19 +70,19 @@ export function ProfilePage() {
         dispatch(requestLogout());
     };
 
-    const onSubmitUpdateUser = (event) => {
+    const onSubmitUpdateUser = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestUpdateUser(name, email, password));
         navigate('/');
     }
 
     const resetButton = () => {
-        useEmailIcon("EditIcon");
-        useEmailDisabled(true);
-        useNameIcon("EditIcon");
-        useNameDisabled(true);
-        usePasswordIcon("EditIcon");
-        usePasswordDisabled(true);
+        setEmailIcon("EditIcon");
+        setEmailDisabled(true);
+        setNameIcon("EditIcon");
+        setNameDisabled(true);
+        setPasswordIcon("EditIcon");
+        setPasswordDisabled(true);
         setName(user.user.name);
         setEmail(user.user.email);
         passwordUser ? setPassword(passwordUser) : setPassword("")

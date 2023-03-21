@@ -2,14 +2,13 @@ import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import style from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import PropType from "prop-types";
 
-const modals = document.querySelector("#modals");
+const modals = document.querySelector("#modals") as HTMLElement;
 
-const Modal = ({ onClose, titleModal, children }) => {
+const Modal = ({ onClose, titleModal, children } : {onClose: () => void, titleModal?: string, children?: JSX.Element}) => {
 
     useEffect(() => {
-        const handleEsc = (event) => {
+        const handleEsc = (event: KeyboardEvent) => {
             event.key === "Escape" && onClose();
         };
         document.addEventListener("keydown", handleEsc);
@@ -34,11 +33,5 @@ const Modal = ({ onClose, titleModal, children }) => {
         modals
     );
 };
-
-Modal.propTypes = {
-    titleModal: PropType.string,
-    onClose: PropType.func,
-    children: PropType.element
-}
 
 export default Modal;

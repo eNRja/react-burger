@@ -2,6 +2,7 @@ import { forgotPasswordApi, resetPasswordApi } from '../../api/api';
 
 export const FORGOT_PASSWORD = 'FORGOT_PASSWORD';
 export const RESET_PASSWORD = 'RESET_PASSWORD';
+export const PROTECT_RESET_PAGE = 'PROTECT_RESET_PAGE'
 
 export function requestForgotPassword(email, goToResetPasswordPage) {
     return function (dispatch) {
@@ -34,4 +35,13 @@ export function requestResetPassword(password, token) {
                 console.log(err)
             })
     }
-} 
+}
+
+export function checkProtectResetPage(bool) {
+    return function(dispatch) {
+        dispatch({
+            type: PROTECT_RESET_PAGE,
+            payload: bool
+        })
+    }
+}

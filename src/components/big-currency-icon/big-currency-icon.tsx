@@ -1,7 +1,7 @@
-import React from 'react';
 import { getIconColor } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
+import { TIconProps } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons/utils';
 
-export const BigCurrencyIcon = ({ type }) => {
+export const BigCurrencyIcon = ({ type } : TIconProps) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

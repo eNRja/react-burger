@@ -31,7 +31,6 @@ export function requestLogin(email, password) {
 
 export const checkAuth = () => (dispatch) => {
     dispatch(getUserWithRefresh());
-    dispatch({ type: AUTH_CHECKED });
 };
 
 function getUser() {
@@ -43,6 +42,7 @@ function getUser() {
                         type: USER_SUCCEESS,
                         payload: data,
                     });
+                    dispatch({ type: AUTH_CHECKED });
                 }
             })
             .catch(err => {
@@ -60,6 +60,7 @@ function getUserWithRefresh() {
                         type: USER_SUCCEESS,
                         payload: data,
                     });
+                    dispatch({ type: AUTH_CHECKED });
                 }
             })
             .catch(err => {

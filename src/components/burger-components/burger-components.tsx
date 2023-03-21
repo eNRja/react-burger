@@ -1,18 +1,18 @@
-import React from 'react';
 import style from './burger-components.module.css';
 import Slices from '../slices/slices';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { deleteBun } from '../../services/actions/draggable-ingredients';
-import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
 import { increaseCounter, decreaseBunCounter, decreaseCounter } from '../../services/actions/ingredients';
 import { getDraggableIngredient } from '../../services/actions/draggable-ingredients';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { IDragIngredient, TIngredientList } from '../../utils/data';
 
 export default function BurgerComponents() {
-    const dispatch = useDispatch();
-    const dragIngredients = useSelector(state => state.ingredientList);
+    const dispatch = useAppDispatch();
+    const dragIngredients = useAppSelector<TIngredientList>(state => state.ingredientList);
 
-    const [{ isHover }, drop] = useDrop({
+    const [, drop] = useDrop<TIngredientList>({
         accept: "BurgerConstructor",
         collect: monitor => ({
             isHover: monitor.isOver(),
@@ -34,12 +34,11 @@ export default function BurgerComponents() {
     }
 
     return (
-
-        <div className={style.BurgerComponents} board={"BurgerConstructor"} ref={drop}>
+        <div className={style.BurgerComponents} ref={drop}>
             {dragIngredients.bun._id &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-8 mb-4'
+                        extraClass='ml-10 mb-4'
                         type={"top"}
                         text={`${dragIngredients.bun.name}${' '}${'(верх)'}`}
                         price={dragIngredients.bun.price}
@@ -49,7 +48,7 @@ export default function BurgerComponents() {
                 </div>
             }
             <ul className={style.BurgerCenter}>
-                {dragIngredients.items.map(element =>
+                {dragIngredients.items.map((element: IDragIngredient) =>
                     element.type !== 'bun' &&
                     <Slices
                         element={element}
@@ -60,7 +59,7 @@ export default function BurgerComponents() {
             {dragIngredients.bun._id &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-8 mt-4'
+                        extraClass='ml-10 mt-4'
                         type={"bottom"}
                         isLocked={true}
                         text={`${dragIngredients.bun.name}${' '}${'(низ)'}`}

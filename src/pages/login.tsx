@@ -1,16 +1,24 @@
-import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './login.module.css';
-import { requestLogin } from '../services/actions/login'
+import style from './login.module.css';
+import { requestLogin } from '../services/actions/login';
+import { useAppDispatch } from '../hooks/hooks';
 
 export function LoginPage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const inputRef = useRef(null);
+    const [hiddenPassword, setHiddenPassword] = useState<"text" | "email" | "password" | undefined>('password');
+
+    const onIconClick = () => {
+        if (hiddenPassword === 'password') {
+            setHiddenPassword('text')
+        } else {
+            setHiddenPassword('password')
+        }
+    }
 
     const onClickRegister = () => {
         navigate('/register');
@@ -20,20 +28,15 @@ export function LoginPage() {
         navigate('/forgot-password');
     };
 
-    const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
-        alert('Icon Click Callback')
-    }
-
-    const onSubmitLogin = function (event) {
+    const onSubmitLogin = function (event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         dispatch(requestLogin(email, password));
         navigate(-1);
     }
 
     return (
-        < main className={styles.LoginMain}>
-            <form className={styles.LoginForm} onSubmit={onSubmitLogin}>
+        < main className={style.LoginMain}>
+            <form className={style.LoginForm} onSubmit={onSubmitLogin}>
                 <h1 className="text text_type_main-medium mb-6">Вход</h1>
                 <Input
                     type={'text'}
@@ -42,20 +45,18 @@ export function LoginPage() {
                     value={email}
                     name={'name'}
                     error={false}
-                    ref={inputRef}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 mb-6"
                 />
                 <Input
-                    type={'text'}
+                    type ={hiddenPassword}
                     placeholder={'Пароль'}
                     onChange={e => setPassword(e.target.value)}
                     icon={'ShowIcon'}
                     value={password}
                     name={'name'}
                     error={false}
-                    ref={inputRef}
                     onIconClick={onIconClick}
                     errorText={'Ошибка'}
                     size={'default'}
@@ -66,10 +67,10 @@ export function LoginPage() {
                 </Button>
             </form>
             <p className="text text_type_main-default mb-4">Вы — новый пользователь?
-                <span className={styles.LoginButton} onClick={onClickRegister}> Зарегистрироваться</span>
+                <span className={style.LoginButton} onClick={onClickRegister}> Зарегистрироваться</span>
             </p>
             <p className="text text_type_main-default">Забыли пароль?
-                <span className={styles.LoginButton} onClick={onClickForgotPassword}> Восстановить пароль</span>
+                <span className={style.LoginButton} onClick={onClickForgotPassword}> Восстановить пароль</span>
             </p>
         </main>
     );

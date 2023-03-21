@@ -2,6 +2,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './app-header.module.css';
+
 import AppHeaderButton from '../app-header-button/app-header-button';
 
 export default function AppHeader() {
@@ -27,9 +28,9 @@ export default function AppHeader() {
                 <NavLink to="/profile" className={style.active}>
                     <AppHeaderButton buttonIcon={ProfileIcon} buttonText="Личный кабинет" buttonDefault={isLogin || isProfile || isRegister || isResetPass} />
                 </NavLink>
-                <div className={style.AppHeaderLogo}>
+                <NavLink to="/" className={style.AppHeaderLogo}>
                     <Logo />
-                </div>
+                </NavLink>
             </div>
         </header>
     )

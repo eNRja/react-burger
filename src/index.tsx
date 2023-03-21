@@ -6,7 +6,7 @@ import { store } from './services/store'
 import { BrowserRouter as Router} from 'react-router-dom';
 
 
-const root = createRoot(document.getElementById('root'));
+const root = createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
   <React.StrictMode>

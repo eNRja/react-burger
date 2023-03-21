@@ -1,8 +1,9 @@
-import { FORGOT_PASSWORD, RESET_PASSWORD } from '../actions/forgot-reset-password';
+import { FORGOT_PASSWORD, RESET_PASSWORD, PROTECT_RESET_PAGE } from '../actions/forgot-reset-password';
 
 const initialState = {
     itemRequest: [],
-    passwordRequest: []
+    passwordRequest: [],
+    protectedResetPage: false
 };
 
 export const forgotPasswordReducer = (state = initialState, action) => {
@@ -19,6 +20,13 @@ export const forgotPasswordReducer = (state = initialState, action) => {
             return {
                 ...state,
                 passwordRequest: [action.payload],
+            }
+        }
+
+        case PROTECT_RESET_PAGE: {
+            return {
+                ...state,
+                protectedResetPage: action.payload,
             }
         }
 

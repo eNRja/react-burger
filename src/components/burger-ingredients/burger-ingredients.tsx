@@ -1,17 +1,17 @@
-import React from 'react';
-import { getIngredients } from '../../services/actions/ingredients';
-import { useSelector, useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsColumn from '../ingredients-column/ingredients-column';
 import style from './burger-ingredients.module.css';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
 export default function BurgerIngredients() {
-    const [current, setCurrent] = React.useState('one')
-    const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredient);
-    const dispatch = useDispatch();
-    const bunTabRef = React.useRef();
-    const sauceTabRef = React.useRef();
-    const mainTabRef = React.useRef();
+    const [current, setCurrent] = useState<string>('one')
+    const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(state => state.ingredient);
+
+    const dispatch = useAppDispatch();
+    const bunTabRef = useRef<HTMLHeadingElement>(null!);
+    const sauceTabRef = useRef<HTMLHeadingElement>(null!);
+    const mainTabRef = useRef<HTMLHeadingElement>(null!);
 
     const moveToTitleBun = () => {
         bunTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -25,10 +25,6 @@ export default function BurgerIngredients() {
         mainTabRef.current.scrollIntoView({ block: "center", behavior: "smooth" });
         setCurrent('three');
     }
-
-    React.useEffect(() => {
-        dispatch(getIngredients())
-    }, [dispatch]);
 
     if (ingredientsFailed) {
         return <p>Произошла ошибка при получении данных</p>
