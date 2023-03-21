@@ -1,12 +1,12 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import styles from './forgot-password.module.css';
-import { requestForgotPassword } from '../services/actions/forgot-reset-password';
+import style from './forgot-password.module.css';
+import { checkProtectResetPage, requestForgotPassword } from '../services/actions/forgot-reset-password';
+import { useAppDispatch } from '../hooks/hooks';
 
 export function ForogotPasswordPage() {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
 
@@ -16,9 +16,10 @@ export function ForogotPasswordPage() {
 
     const inputRef = useRef(null)
 
-    const onSubmitReset = (event) => {
+    const onSubmitReset = (event: React.SyntheticEvent) => {
         event.preventDefault();
         dispatch(requestForgotPassword(email, goToResetPasswordPage));
+        dispatch(checkProtectResetPage(true));
     }
 
     const goToResetPasswordPage = () => {
@@ -27,8 +28,8 @@ export function ForogotPasswordPage() {
 
 
     return (
-        < main className={styles.ForgotPasswordMain}>
-            <form className={styles.ForgotPasswordForm} onSubmit={onSubmitReset}>
+        < main className={style.ForgotPasswordMain}>
+            <form className={style.ForgotPasswordForm} onSubmit={onSubmitReset}>
                 <h1 className="text text_type_main-medium mb-6">Восстановление пароля</h1>
                 <Input
                     type={'email'}
@@ -47,7 +48,7 @@ export function ForogotPasswordPage() {
                 </Button>
             </form>
             <p className="text text_type_main-default mb-4">Вспомнили пароль?
-                <span className={styles.ForgotPasswordButton} onClick={onClickLogin}> Войти</span>
+                <span className={style.ForgotPasswordButton} onClick={onClickLogin}> Войти</span>
             </p>
         </main>
     );

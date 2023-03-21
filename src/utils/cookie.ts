@@ -1,4 +1,6 @@
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string, props: {
+   [x: string]: any; secure?: boolean; "max-age"?: number; SameSite?: string; expires?: any; 
+  }) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
@@ -21,7 +23,7 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );

@@ -4,10 +4,10 @@ import { getCookie } from '../utils/cookie'
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 export const getApiIngredients = () => {
-  return request("ingredients")
+  return request("ingredients", undefined)
 };
 
-export const makeOrderApi = (burgerIngredients) => {
+export const makeOrderApi = (burgerIngredients: []) => {
   return request("orders", {
     method: 'POST',
     headers: {
@@ -21,7 +21,7 @@ export const makeOrderApi = (burgerIngredients) => {
   })
 };
 
-export const forgotPasswordApi = (email) => {
+export const forgotPasswordApi = (email: string) => {
   return request("password-reset", {
     method: 'POST',
     headers: {
@@ -34,7 +34,7 @@ export const forgotPasswordApi = (email) => {
   })
 };
 
-export const resetPasswordApi = (password, token) => {
+export const resetPasswordApi = (password: string, token: string) => {
   return request("password-reset/reset", {
     method: 'POST',
     headers: {
@@ -48,7 +48,7 @@ export const resetPasswordApi = (password, token) => {
   })
 };
 
-export const postRegistrationApi = (email, password, name) => {
+export const postRegistrationApi = (email: string, password: string, name: string) => {
   return request("auth/register", {
     method: 'POST',
     headers: {
@@ -63,7 +63,7 @@ export const postRegistrationApi = (email, password, name) => {
   })
 }
 
-export const postLoginApi = (email, password) => {
+export const postLoginApi = (email: string, password: string) => {
   return request("auth/login", {
     method: 'POST',
     headers: {
@@ -92,7 +92,7 @@ export const getAuth = () => {
   });
 }
 
-export const postRefreshToken = (refreshToken) => {
+export const postRefreshToken = (refreshToken: string) => {
   return request("auth/token", {
     method: 'POST',
     headers: {
@@ -105,7 +105,7 @@ export const postRefreshToken = (refreshToken) => {
   })
 }
 
-export const postLogout = (refreshToken) => {
+export const postLogout = (refreshToken: string) => {
   return request("auth/logout", {
     method: 'POST',
     headers: {
@@ -118,7 +118,7 @@ export const postLogout = (refreshToken) => {
   })
 }
 
-export const postUpdateUser = (name, email, password) => {
+export const postUpdateUser = (name: string, email: string, password: string) => {
   return request('auth/user', {
     method: 'PATCH',
     headers: {

@@ -1,9 +1,9 @@
-import React from 'react';
 import style from './order-details.module.css';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../hooks/hooks';
+import { TOrderItems } from '../../utils/data';
 
 const OrderDetails = () => {
-    const { orderItems } = useSelector(state => state.order);
+    const { orderItems } = useAppSelector<TOrderItems>(state => state.order);
     const lastOrder = orderItems[orderItems.length - 1];
 
     return (

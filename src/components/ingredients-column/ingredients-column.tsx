@@ -1,11 +1,12 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import IngredientItem from '../ingredient-item/ingredient-item';
 import style from './ingredients-column.module.css';
-import { ingredientPropType } from '../../utils/prop-types';
-import PropType from "prop-types";
+import { IIngredient } from '../../utils/data';
 
-const IngredientsColumn = ({ ingredients, columnTitle, setCurrent, tabRef }) => {
+const IngredientsColumn = ({ ingredients, columnTitle, setCurrent, tabRef }:
+     {ingredients: IIngredient[], columnTitle: string, setCurrent: CallableFunction, tabRef: React.RefObject<HTMLHeadingElement>}) => {
+
     const translateTitle = columnTitle === "Булки" ?
         "bun" : (columnTitle === "Соусы" ? "sauce" : "main");
         const idTitle = columnTitle === "Булки" ?
@@ -15,7 +16,7 @@ const IngredientsColumn = ({ ingredients, columnTitle, setCurrent, tabRef }) => 
         threshold: 0
     });
 
-    React.useEffect(() => {
+    useEffect(() => {
         columnTitle === "Начинки" && mainInView === false && setCurrent("two");
         columnTitle === "Начинки" && mainInView === true && setCurrent("three");
     }, [mainInView]);
@@ -31,12 +32,6 @@ const IngredientsColumn = ({ ingredients, columnTitle, setCurrent, tabRef }) => 
             </ul>
         </>
     )
-}
-
-IngredientsColumn.propTypes = {
-    ingredients: PropType.arrayOf(ingredientPropType).isRequired,
-    columnTitle: PropType.string.isRequired,
-    setCurrent: PropType.func.isRequired,
 }
 
 export default IngredientsColumn;

@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
 import { requestRegistration } from '../services/actions/registration'
+import { useAppDispatch } from '../hooks/hooks';
 
 export function RegisterPage() {
     const navigate = useNavigate();
@@ -11,19 +11,23 @@ export function RegisterPage() {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const inputRef = useRef(null);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const [hiddenPassword, setHiddenPassword] = useState<"email" | "password" | "text" | undefined>('password');
+
+    const onIconClick = () => {
+        if (hiddenPassword === 'password') {
+            setHiddenPassword('text')
+        } else {
+            setHiddenPassword('password')
+        }
+    }
 
     const onClickLogin = () => {
         const initialBreadcrumb = [{ path: '/', url: '/', title: 'Register' }];
         navigate('/login', { state: initialBreadcrumb });
     };
 
-    const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0)
-        alert('Icon Click Callback')
-    }
-
-    const onSubmitRegistration = (event) => {
+    const onSubmitRegistration = (event: React.SyntheticEvent) => {
         event.preventDefault();
         dispatch(requestRegistration(email, password, name));
     }
@@ -61,7 +65,7 @@ export function RegisterPage() {
                     extraClass="ml-1 mb-6"
                 />
                 <Input
-                    type={'text'}
+                    type={hiddenPassword}
                     placeholder={'Пароль'}
                     onChange={e => setPassword(e.target.value)}
                     icon={'ShowIcon'}

@@ -1,17 +1,17 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './slices.module.css';
-import { useSelector, useDispatch } from 'react-redux';
 import { DRAGGABLE_INGREDIENT_DELETE, DRAGGABLE_INGREDIENT_MOVE } from '../../services/actions/draggable-ingredients';
 import { DECREASE_COUNTER } from '../../services/actions/ingredients';
-import { useDrag, useDrop } from "react-dnd";
-import PropType from "prop-types";
+import { useDrag, useDrop, XYCoord } from "react-dnd";
+import { IDragIngredient, TDragIngredients } from '../../utils/data'
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 
-export default function Slices({ element }) {
-    const ref = useRef(null);
-    const dispatch = useDispatch();
+export default function Slices({ element }: { element: IDragIngredient }) {
+    const ref = useRef<HTMLLIElement>(null);
+    const dispatch = useAppDispatch();
     const { uuid, _id, price, image_mobile, name } = element;
-    const dragIngredients = useSelector(state => state.ingredientList)
+    const dragIngredients = useAppSelector<TDragIngredients>(state => state.ingredientList)
 
     const onDelete = () => {
         (dispatch({
@@ -27,7 +27,7 @@ export default function Slices({ element }) {
 
     const [, drop] = useDrop({
         accept: 'burgerCard',
-        hover: (item, monitor) => {
+        hover: (item: { index: number; element: IDragIngredient }, monitor) => {
             if (!ref.current) {
                 return
             }
@@ -45,7 +45,7 @@ export default function Slices({ element }) {
             // Determine mouse position
             const clientOffset = monitor.getClientOffset()
             // Get pixels to the top
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
             // Only perform the move when the mouse has crossed half of the items height
             // When dragging downwards, only move when the cursor is below 50%
             // When dragging upwards, only move when the cursor is above 50%
@@ -89,15 +89,4 @@ export default function Slices({ element }) {
             />
         </li>
     )
-}
-
-Slices.propTypes = {
-    element: PropType.shape({
-        _id: PropType.string.isRequired,
-        uuid: PropType.string.isRequired,
-        image_mobile: PropType.string.isRequired,
-        name: PropType.string.isRequired,
-        price: PropType.number.isRequired,
-        type: PropType.string.isRequired,
-    })
 }
