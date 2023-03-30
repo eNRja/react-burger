@@ -4,26 +4,26 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './burger-info.module.css'
 import Modal from '../modal/modal';
 import { BigCurrencyIcon } from '../big-currency-icon/big-currency-icon';
-import { sendIngredients } from '../../services/actions/order';
-import { ORDER_CLOSE } from '../../services/actions/order'
+import { sendIngredients, setLoaderAction } from '../../services/actions/order';
+import { ORDER_CLOSE } from '../../services/constants'
 import OrderDetails from '../order-details/order-details';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { TStateIngredient, TStateOrder, TStateUser } from '../../utils/data';
-
-
-
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import { TDragItem } from '../../types/data';
+import { TUserState } from '../../services/reducers/login';
+import { TOrders } from '../../services/reducers/order';
+import { TDragState } from '../../services/reducers/draggable-ingredients';
 
 export default function BurgerInfo() {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const { items, bun } = useAppSelector<TStateIngredient>(state => state.ingredientList);
-
-    const burgerIngredient = items.map((item: any) => item._id)
+    const { items, bun } = useSelector<TDragState>(state => state.ingredientList);
+    const { loader } = useSelector<TOrders>(state => state.order);
+    const burgerIngredient = items.map((item: TDragItem) => item._id)
     const [modal, setModal] = useState(false);
-    const calculation = useMemo(() => calc(items, bun), [items, bun]);
-    const { setmodal } = useAppSelector<TStateOrder>(state => state.order);
-    const { user } = useAppSelector<TStateUser>(state => state.login);
+    const calculation = useMemo(() => bun && calc(items, bun), [items, bun]);
+    const { setmodal } = useSelector<TOrders>(state => state.order);
+    const { user } = useSelector<TUserState>(state => state.login);
+    const styleButton = loader ? style.Button : ''
 
     useEffect(() => {
         if (setmodal === true) {
@@ -34,15 +34,15 @@ export default function BurgerInfo() {
         }
     }, [setmodal]);
 
-
     const openModal = () => {
-        if (user && bun._id) {
+        if (user && bun && bun._id) {
             bun._id && burgerIngredient.push(bun._id)
             dispatch(sendIngredients(burgerIngredient));
-        } else if (bun._id) {
+            dispatch(setLoaderAction(true));
+        } else if (bun && bun._id) {
             navigate('/login')
         } else {
-            navigate('/')
+            navigate('/login')
         }
     };
 
@@ -54,9 +54,10 @@ export default function BurgerInfo() {
         <div className={style.BurgerInfo}>
             <span className="text text_type_digits-medium">{calculation === false ? 0 : calculation}</span>
             <BigCurrencyIcon type="primary" />
-            <Button onClick={openModal} extraClass="ml-10 pt-5 pb-5" htmlType="button" type="primary" size="medium">
+            <Button onClick={openModal} extraClass={`ml-10 pt-5 pb-5 ${styleButton}`} htmlType="button" type="primary" size="medium">
                 Оформить заказ
             </Button>
+            {loader && <div className={`${style.loader} ${style.center}`}><span></span></div>}
             {modal && (<Modal onClose={closeModal}>
                 <OrderDetails />
             </Modal>

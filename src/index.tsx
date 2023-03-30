@@ -2,7 +2,7 @@ import React from 'react';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
-import { store } from './services/store'
+import store from './services/store'
 import { BrowserRouter as Router} from 'react-router-dom';
 
 

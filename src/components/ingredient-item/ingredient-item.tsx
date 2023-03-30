@@ -4,11 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './ingredient-item.module.css';
 import { useDrag } from "react-dnd";
-import { IIngredient } from '../../utils/data';
+import { TIngredients } from '../../types/data';
 
-export default function IngredientItem( {element, setCurrent} : {element: IIngredient, setCurrent : CallableFunction}) {
-    const {_id, name, price, image, image_mobile, type, counter = 0 } = element;
-    const typeDragElement = type;
+export default function IngredientItem({ element, setCurrent }: { element: TIngredients, setCurrent: CallableFunction }) {
+    const { _id, name, price, image, image_mobile, type, counter = 0 } = element;
     const location = useLocation();
 
     const [bunRef, bunInView] = useInView({
@@ -22,7 +21,7 @@ export default function IngredientItem( {element, setCurrent} : {element: IIngre
 
     const [{ opacity }, dragRef] = useDrag({
         type: 'BurgerConstructor',
-        item: { _id, name, price, image_mobile, typeDragElement },
+        item: { _id, name, price, image_mobile, type },
         collect: monitor => ({
             opacity: monitor.isDragging() ? 0.5 : 1
         })

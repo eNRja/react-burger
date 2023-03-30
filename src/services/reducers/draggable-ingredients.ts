@@ -1,31 +1,39 @@
+import { TDragItem } from "../../types/data";
+import { TDragActions } from "../actions/draggable-ingredients";
 import {
     GET_DRAGGABLE_INGREDIENT,
     GET_DRAGGABLE_BUN,
     DRAGGABLE_INGREDIENT_DELETE,
     DRAGGABLE_BUN_DELETE,
     DRAGGABLE_INGREDIENT_MOVE,
-    DRAGGABLE_INGREDIENTS_CLEAR
-} from "../actions/draggable-ingredients";
+    DRAGGABLE_INGREDIENTS_CLEAR,
+} from '../constants'
+
+export type TDragState = {
+    items: Array<TDragItem>,
+    bun: TDragItem | null,
+    dragIngredients: Array<TDragItem> | null,
+};
 
 const initialState = {
     items: [],
-    bun: {},
-    dragIngredients: []
+    bun: null,
+    dragIngredients: null,
 };
 
-export const draggableIngredientReducer = (state = initialState, action) => {
+export const draggableIngredientReducer = (state = initialState, action: TDragActions): TDragState => {
     switch (action.type) {
 
         case GET_DRAGGABLE_INGREDIENT: {
             return {
                 ...state,
                 items: [...state.items, {
-                    _id: action._id,
+                    _id: action.payload._id,
                     uuid: action.uuid,
-                    image_mobile: action.image_mobile,
-                    name: action.name,
-                    price: action.price,
-                    type: action.typeDragElement
+                    image_mobile: action.payload.image_mobile,
+                    name: action.payload.name,
+                    price: action.payload.price,
+                    type: action.payload.type
                 }],
             }
         }
@@ -34,11 +42,12 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 bun: {
-                    _id: action._id,
-                    image_mobile: action.image_mobile,
-                    name: action.name,
-                    price: action.price,
-                    type: action.typeDragElement
+                    _id: action.payload._id,
+                    uuid: action.uuid,
+                    image_mobile: action.payload.image_mobile,
+                    name: action.payload.name,
+                    price: action.payload.price,
+                    type: action.payload.type
                 }
             }
         }
@@ -46,14 +55,14 @@ export const draggableIngredientReducer = (state = initialState, action) => {
         case DRAGGABLE_INGREDIENT_DELETE: {
             return {
                 ...state,
-                items: [...state.items].filter(item => item.uuid !== action.uuid)
+                items: [...state.items].filter((item: TDragItem) => item.uuid !== action.uuid)
             }
         }
 
         case DRAGGABLE_BUN_DELETE: {
             return {
                 ...state,
-                bun: {}
+                bun: null
             }
         }
 
@@ -73,8 +82,8 @@ export const draggableIngredientReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: [],
-                bun: {},
-                dragIngredients: []
+                bun: null,
+                dragIngredients: null
             }
         }
 

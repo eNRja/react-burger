@@ -1,3 +1,4 @@
+import { TIngredientsOrder } from '../types/data';
 import { request } from '../utils/config'
 import { getCookie } from '../utils/cookie'
 
@@ -7,7 +8,7 @@ export const getApiIngredients = () => {
   return request("ingredients", undefined)
 };
 
-export const makeOrderApi = (burgerIngredients: []) => {
+export const makeOrderApi = (burgerIngredients: string[]) => {
   return request("orders", {
     method: 'POST',
     headers: {
@@ -92,7 +93,7 @@ export const getAuth = () => {
   });
 }
 
-export const postRefreshToken = (refreshToken: string) => {
+export const postRefreshToken = () => {
   return request("auth/token", {
     method: 'POST',
     headers: {
@@ -100,12 +101,12 @@ export const postRefreshToken = (refreshToken: string) => {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      "token": refreshToken
+      "token": getCookie('refreshToken')
     })
   })
 }
 
-export const postLogout = (refreshToken: string) => {
+export const postLogout = () => {
   return request("auth/logout", {
     method: 'POST',
     headers: {
@@ -113,7 +114,7 @@ export const postLogout = (refreshToken: string) => {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      "token": refreshToken
+      "token": getCookie('refreshToken')
     })
   })
 }

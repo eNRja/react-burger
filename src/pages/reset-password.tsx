@@ -3,16 +3,21 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './reset-password.module.css';
 import { checkProtectResetPage, requestResetPassword } from '../services/actions/forgot-reset-password';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { useDispatch, useSelector } from '../hooks/hooks';
+import { useForm } from '../hooks/useForm';
 
 export function ResetPasswordPage() {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const [valuePass, setValuePass] = useState('');
-    const [valueCoin, setValueCoin] = useState('');
+    const dispatch = useDispatch();
+    const [values, handleChange] = useForm<{ valuePass: string; valueCoin: string; }>(
+        {
+            valuePass: '',
+            valueCoin: '',
+        }
+    );
     const inputRef = useRef(null);
     const [showPassword, setShowPassword] = useState<"password" | "text" | "email" | undefined>('password');
-    const { protectedResetPage } = useAppSelector((state) => state.forgotPassword);
+    const { protectedResetPage } = useSelector((state) => state.forgotPassword);
 
     const onClickLogin = () => {
         dispatch(checkProtectResetPage(false));
@@ -29,7 +34,7 @@ export function ResetPasswordPage() {
 
     const onSubmitReset = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        dispatch(requestResetPassword(valuePass, valueCoin));
+        dispatch(requestResetPassword(values.valuePass, values.valueCoin));
         dispatch(checkProtectResetPage(false));
         navigate('/');
     }
@@ -44,10 +49,10 @@ export function ResetPasswordPage() {
                     <Input
                         type={showPassword}
                         placeholder={'Введите новый пароль'}
-                        onChange={e => setValuePass(e.target.value)}
+                        onChange={handleChange}
                         icon={'ShowIcon'}
-                        value={valuePass}
-                        name={'name'}
+                        value={values.valuePass}
+                        name={'valuePass'}
                         error={false}
                         ref={inputRef}
                         onIconClick={onIconClick}
@@ -58,9 +63,9 @@ export function ResetPasswordPage() {
                     <Input
                         type={'text'}
                         placeholder={'Введите код из письма'}
-                        onChange={e => setValueCoin(e.target.value)}
-                        value={valueCoin}
-                        name={'name'}
+                        onChange={handleChange}
+                        value={values.valueCoin}
+                        name={'valueCoin'}
                         error={false}
                         ref={inputRef}
                         errorText={'Ошибка'}

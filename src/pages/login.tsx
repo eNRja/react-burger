@@ -3,13 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './login.module.css';
 import { requestLogin } from '../services/actions/login';
-import { useAppDispatch } from '../hooks/hooks';
+import { useDispatch } from '../hooks/hooks';
+import { useForm } from '../hooks/useForm';
 
 export function LoginPage() {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [values, handleChange] = useForm<{ email: string; password: string }>(
+        {
+            email: '',
+            password: ''
+        }
+    );
     const [hiddenPassword, setHiddenPassword] = useState<"text" | "email" | "password" | undefined>('password');
 
     const onIconClick = () => {
@@ -30,7 +35,7 @@ export function LoginPage() {
 
     const onSubmitLogin = function (event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        dispatch(requestLogin(email, password));
+        dispatch(requestLogin(values.email, values.password));
         navigate(-1);
     }
 
@@ -41,21 +46,21 @@ export function LoginPage() {
                 <Input
                     type={'text'}
                     placeholder={'E-mail'}
-                    onChange={e => setEmail(e.target.value)}
-                    value={email}
-                    name={'name'}
+                    onChange={handleChange}
+                    value={values.email}
+                    name={'email'}
                     error={false}
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 mb-6"
                 />
                 <Input
-                    type ={hiddenPassword}
+                    type={hiddenPassword}
                     placeholder={'Пароль'}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={handleChange}
                     icon={'ShowIcon'}
-                    value={password}
-                    name={'name'}
+                    value={values.password}
+                    name={'password'}
                     error={false}
                     onIconClick={onIconClick}
                     errorText={'Ошибка'}

@@ -1,4 +1,12 @@
-import { USER_SUCCEESS, AUTH_CHECKED, REFRESH_TOKEN, USER_UPDATE } from '../actions/login';
+import { TUser } from '../../types/data';
+import { TGetUserActions } from '../actions/login';
+import { USER_SUCCEESS, AUTH_CHECKED, REFRESH_TOKEN, USER_UPDATE } from '../constants';
+
+export type TUserState = {
+    user: TUser | null,
+    passwordUser?: string,
+    isAuthChecked: boolean
+};
 
 const initialState = {
     user: null,
@@ -6,7 +14,7 @@ const initialState = {
     isAuthChecked: false,
 };
 
-export const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action: TGetUserActions): TUserState => {
     switch (action.type) {
 
         case AUTH_CHECKED: {

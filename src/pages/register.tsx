@@ -3,15 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './register.module.css';
 import { requestRegistration } from '../services/actions/registration'
-import { useAppDispatch } from '../hooks/hooks';
+import { useDispatch } from '../hooks/hooks';
+import { useForm } from '../hooks/useForm';
 
 export function RegisterPage() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [values, handleChange] = useForm<{ name: string; email: string; password: string }>(
+        {
+            name: '',
+            email: '',
+            password: ''
+        }
+    );
     const inputRef = useRef(null);
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const [hiddenPassword, setHiddenPassword] = useState<"email" | "password" | "text" | undefined>('password');
 
     const onIconClick = () => {
@@ -29,7 +34,7 @@ export function RegisterPage() {
 
     const onSubmitRegistration = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        dispatch(requestRegistration(email, password, name));
+        dispatch(requestRegistration(values.email, values.password, values.name));
     }
 
     return (
@@ -39,13 +44,11 @@ export function RegisterPage() {
                 <Input
                     type={'text'}
                     placeholder={'Имя'}
-                    onChange={e => setName(e.target.value)}
-
-                    value={name}
+                    onChange={handleChange}
+                    value={values.name}
                     name={'name'}
                     error={false}
                     ref={inputRef}
-
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 mb-6"
@@ -53,13 +56,11 @@ export function RegisterPage() {
                 <Input
                     type={'text'}
                     placeholder={'E-mail'}
-                    onChange={e => setEmail(e.target.value)}
-
-                    value={email}
-                    name={'name'}
+                    onChange={handleChange}
+                    value={values.email}
+                    name={'email'}
                     error={false}
                     ref={inputRef}
-
                     errorText={'Ошибка'}
                     size={'default'}
                     extraClass="ml-1 mb-6"
@@ -67,10 +68,10 @@ export function RegisterPage() {
                 <Input
                     type={hiddenPassword}
                     placeholder={'Пароль'}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={handleChange}
                     icon={'ShowIcon'}
-                    value={password}
-                    name={'name'}
+                    value={values.password}
+                    name={'password'}
                     error={false}
                     ref={inputRef}
                     onIconClick={onIconClick}

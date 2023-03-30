@@ -8,10 +8,12 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 10;
 }
 
 .ModalBlock {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     min-width: 720px;
@@ -36,6 +38,9 @@
 }
 
 .ModalEscBtn {
+    position: absolute;
+    top: 62px;
+    right: 36px;
     width: 24px;
     height: 24px;
     background-image: url(../../image/Stroke.svg);

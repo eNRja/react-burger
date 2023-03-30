@@ -2,13 +2,14 @@ import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
-import { requestLogout, requestUpdateUser } from '../services/actions/login';
-import { RootState } from '../services/store'
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { requestUpdateUser } from '../services/actions/login';
+import { useDispatch, useSelector } from '../hooks/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
+import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
+import { TUserState } from '../services/reducers/login';
 
 export function ProfilePage() {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ export function ProfilePage() {
     const inputNameRef = useRef(null);
     const inputEmailRef = useRef(null);
     const inputPasswordRef = useRef(null);
-    const { user, passwordUser } = useAppSelector((state: RootState) => state.login);
+    const { user, passwordUser } = useSelector<TUserState>((state) => state.login);
     const [nameDisabled, setNameDisabled] = useState(true);
     const [nameIcon, setNameIcon] = useState<keyof TICons | undefined>("EditIcon");
     const [emailDisabled, setEmailDisabled] = useState(true);
@@ -25,7 +26,7 @@ export function ProfilePage() {
     const [passwordIcon, setPasswordIcon] = useState<keyof TICons | undefined>("EditIcon");
 
     useEffect(() => {
-        if (user.success) {
+        if (user && user.success) {
             setName(user.user.name);
             setEmail(user.user.email);
             passwordUser && setPassword(passwordUser);
@@ -62,14 +63,6 @@ export function ProfilePage() {
         }
     }
 
-    const onClickHistory = () => {
-        navigate('/*');
-    };
-
-    const onClickExit = () => {
-        dispatch(requestLogout());
-    };
-
     const onSubmitUpdateUser = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         dispatch(requestUpdateUser(name, email, password));
@@ -83,13 +76,14 @@ export function ProfilePage() {
         setNameDisabled(true);
         setPasswordIcon("EditIcon");
         setPasswordDisabled(true);
-        setName(user.user.name);
-        setEmail(user.user.email);
+        user && setName(user.user.name);
+        user && setEmail(user.user.email);
         passwordUser ? setPassword(passwordUser) : setPassword("")
     }
 
     return (
         < main className={styles.ProfileMain}>
+            <ProfileNavBar />
             <form className={styles.ProfileForm} onSubmit={onSubmitUpdateUser}>
                 <Input
                     disabled={nameDisabled}
@@ -136,7 +130,7 @@ export function ProfilePage() {
                     size={'default'}
                     extraClass="ml-1 mb-6"
                 />
-                {(user.user.name !== name || user.user.email !== email ||
+                {(user && user.user.name !== name || user && user.user.email !== email ||
                     (password ? password !== passwordUser : password === passwordUser))
                     && <div className={styles.UnvisibleButtons}>
                         <span className={`${styles.CancelButton} text text_type_main-default`} onClick={resetButton}>Отмена</span>
@@ -145,13 +139,6 @@ export function ProfilePage() {
                         </Button>
                     </div>}
             </form>
-            <div className={styles.ProfileNavBar}>
-                <a className={`${styles.ProfileButton} text text_type_main-medium`}>Профиль</a>
-                <a className={`${styles.ProfileButton} text text_type_main-medium text_color_inactive`} onClick={onClickHistory}>История заказов</a>
-                <a className={`${styles.ProfileButton} text text_type_main-medium text_color_inactive`} onClick={onClickExit}>Выход</a>
-                <span className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете
-                    изменить&nbsp;свои персональные данные</span>
-            </div>
         </main>
     );
 } 

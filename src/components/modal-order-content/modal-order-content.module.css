@@ -1,0 +1,65 @@
+.OrderMain {
+    width: 720px;
+    padding-top: 58px;
+}
+
+.OrderColumns {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 24px;
+    overflow-y: scroll;
+    height: 312px;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+}
+
+/* WebKit and Chromiums */
+.OrderColumns::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.OrderColumns::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.OrderContent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.OrderContentImage {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(#131316, #131316) padding-box,
+        linear-gradient(to right, #801AB2, #4C4CFF) border-box;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    object-fit: cover;
+    margin-right: 16px;
+}
+
+.OrderContentText {
+    width: 380px;
+    margin-right: 8px;
+}
+
+.OrderContentCount {
+    width: 108px;
+    text-align: right;
+    margin-right: 6px;
+}
+
+.OrderFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 38px 40px;
+}
+
+.OrderCounter {
+    display: flex;
+    align-items: center;
+}
+

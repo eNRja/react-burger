@@ -1,4 +1,6 @@
-import { BASE_URL } from '../api/api'
+import { BASE_URL } from '../api/api';
+
+export const wsUrl = 'wss://norma.nomoreparties.space/orders';
 
 const checkResponse = <T>(res: Response): Promise<T> => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

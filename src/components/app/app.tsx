@@ -11,17 +11,20 @@ import {
   ForogotPasswordPage,
   ResetPasswordPage,
   NotFound404,
-  OrdersPage
+  OrdersPage,
+  FeedPage
 } from '../../pages';
 import Modal from '../modal/modal'
 import { checkAuth } from '../../services/actions/login';
 import ModalContent from '../modal-content/modal-content';
-import { useAppDispatch } from '../../hooks/hooks';
+import { useDispatch } from '../../hooks/hooks';
 import { getIngredients } from '../../services/actions/ingredients';
+import ModalFeedContent from '../modal-feed-content/modal-feed-content';
+import ModalOrderContent from '../modal-order-content/modal-order-content';
 
 export default function App() {
   const location = useLocation();
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
@@ -40,7 +43,23 @@ export default function App() {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/modal/:ingredientId" element={<ModalContent />} />
-        <Route path="/profile/orders" element={<OrdersPage />} />
+        <Route path="/feed/:orderId" element={<ModalFeedContent />} />
+        <Route
+          path="/profile/orders"
+          element={
+            <ProtectedRoute anonymous={false}>
+              <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/orders/:orderId"
+          element={
+            <ProtectedRoute anonymous={false}>
+              <ModalOrderContent />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/login"
           element={
@@ -81,6 +100,12 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/feed"
+          element={
+            <FeedPage />
+          }
+        />
         <Route path="/*" element={<NotFound404 />} />
       </Routes>
       {background && (
@@ -88,9 +113,37 @@ export default function App() {
           <Route
             path="/modal/:ingredientId"
             element={
-              <Modal onClose={onModalClose} titleModal="Детали ингредиента">
+              <Modal onClose={onModalClose}>
                 <ModalContent />
               </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background && (
+        <Routes location={location}>
+          <Route
+            path="/feed/:orderId"
+            element={
+              <Modal onClose={onModalClose}>
+                <ModalFeedContent />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background && (
+        <Routes location={location}>
+          <Route
+            path="/profile/orders/:orderId"
+            element={
+              <ProtectedRoute anonymous={false}>
+                <Modal onClose={onModalClose}>
+                  <ModalOrderContent />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

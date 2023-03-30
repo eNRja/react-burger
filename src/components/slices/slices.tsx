@@ -1,33 +1,29 @@
 import { useRef } from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import style from './slices.module.css';
-import { DRAGGABLE_INGREDIENT_DELETE, DRAGGABLE_INGREDIENT_MOVE } from '../../services/actions/draggable-ingredients';
-import { DECREASE_COUNTER } from '../../services/actions/ingredients';
+import { DRAGGABLE_INGREDIENT_MOVE } from '../../services/constants';
 import { useDrag, useDrop, XYCoord } from "react-dnd";
-import { IDragIngredient, TDragIngredients } from '../../utils/data'
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import { TDragState } from '../../services/reducers/draggable-ingredients';
+import { TDragItem } from '../../types/data';
+import { DraggableIngredientDeleteAction } from '../../services/actions/draggable-ingredients';
+import { decreaseCounter } from '../../services/actions/ingredients';
 
-export default function Slices({ element }: { element: IDragIngredient }) {
+export default function Slices({ element }: { element: TDragItem }) {
     const ref = useRef<HTMLLIElement>(null);
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const { uuid, _id, price, image_mobile, name } = element;
-    const dragIngredients = useAppSelector<TDragIngredients>(state => state.ingredientList)
+    const dragIngredients = useSelector<TDragState>(state => state.ingredientList)
 
     const onDelete = () => {
-        (dispatch({
-            type: DRAGGABLE_INGREDIENT_DELETE,
-            uuid
-        }))
+        dispatch(DraggableIngredientDeleteAction(uuid))
             &&
-            dispatch({
-                type: DECREASE_COUNTER,
-                _id,
-            })
+            dispatch(decreaseCounter(_id))
     };
 
     const [, drop] = useDrop({
         accept: 'burgerCard',
-        hover: (item: { index: number; element: IDragIngredient }, monitor) => {
+        hover: (item: { index: number; element: TDragItem }, monitor) => {
             if (!ref.current) {
                 return
             }
