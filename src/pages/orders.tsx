@@ -26,7 +26,7 @@ export function OrdersPage() {
             <main className={style.OrdersMain}>
                 <ProfileNavBar />
                 <div className={style.Orders}>
-                    {items.orders && items.orders.slice(0).reverse().map((element: TOrderArr) =>
+                    {items.orders && items.orders.reverse().map((element: TOrderArr) =>
                         <ContentOrders key={element._id} element={element} />)
                     }
                 </div>

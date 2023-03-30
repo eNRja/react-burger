@@ -1,4 +1,4 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
@@ -11,10 +11,6 @@ export default function ContentFeed({ element }: any) {
     const { _id, ingredients, name, number, updatedAt } = element
     const reducer = useSelector<TIngredientsState>(state => state.ingredient);
     const location = useLocation();
-    const Data = new Date()
-    const freshData = `${addZero(Data.getFullYear())}-${addZero(Data.getMonth() + 1)}-${addZero(Data.getDate())}`
-    const burgerData = updatedAt.split('T');
-    const time = burgerData[1].slice(0, 5);
 
     const orderIngredients = reducer.ingredients.filter(item => {
         for (let i = 0; i <= ingredients.length; i++) {
@@ -39,7 +35,7 @@ export default function ContentFeed({ element }: any) {
         <Link to={`/feed/${_id}`} state={{ background: location }} className={style.ContentFeed}>
             <div className={style.ContentFeedNumber}>
                 <span className="text text_type_digits-default">#{number}</span>
-                <span className="text text_type_main-default text_color_inactive">{`${freshData === burgerData[0] ? "Сегодня" : burgerData[0]}, ${time}`}</span>
+                <FormattedDate className="text text_type_main-default text_color_inactive" date={new Date(updatedAt)} />
             </div>
             <h2 className="text text_type_main-medium ml-6 mr-6">{name}</h2>
             <div className={style.ContentFeedComponents}>

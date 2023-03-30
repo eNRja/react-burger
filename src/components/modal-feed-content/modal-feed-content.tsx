@@ -13,10 +13,10 @@ import style from "./modal-feed-content.module.css";
 export default function ModalFeedContent() {
     const { items } = useSelector<TFeedState>(state => state.feed);
     const reducer = useSelector<TIngredientsState>(state => state.ingredient);
-    const { orderId } = useParams();
+    const { feedId } = useParams();
     const dispatch = useDispatch();
     const element: any = items.orders.find((elem) => {
-        return elem._id === orderId;
+        return elem._id === feedId;
     })
     const statusText = element && element.status === "done" ? "Создан" : element && element.status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = element && element.status === "done" ? "" : element && element.status === "pending" ? "text_color_success" : "text_color_error";

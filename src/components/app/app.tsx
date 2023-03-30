@@ -43,7 +43,7 @@ export default function App() {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/modal/:ingredientId" element={<ModalContent />} />
-        <Route path="/feed/:orderId" element={<ModalFeedContent />} />
+        <Route path="/feed/:feedId" element={<ModalFeedContent />} />
         <Route
           path="/profile/orders"
           element={
@@ -124,7 +124,7 @@ export default function App() {
       {background && (
         <Routes location={location}>
           <Route
-            path="/feed/:orderId"
+            path="/feed/:feedId"
             element={
               <Modal onClose={onModalClose}>
                 <ModalFeedContent />

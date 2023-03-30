@@ -1,4 +1,4 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
@@ -11,10 +11,6 @@ export default function ContentOrders({ element }: any) {
     const { _id, ingredients, name, number, updatedAt, status } = element
     const reducer = useSelector<TIngredientsState>(state => state.ingredient);
     const location = useLocation();
-    const Data = new Date()
-    const freshData = `${addZero(Data.getFullYear())}-${addZero(Data.getMonth() + 1)}-${addZero(Data.getDate())}`
-    const burgerData = updatedAt.split('T');
-    const time = burgerData[1].slice(0, 5);
     const statusText = status === "done" ? "Создан" : status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = status === "done" ? "" : status === "pending" ? "text_color_success" : "text_color_error";
 
@@ -41,7 +37,7 @@ export default function ContentOrders({ element }: any) {
         <Link to={`/profile/orders/${_id}`} state={{ background: location }} className={style.ContentOrders}>
             <div className={style.ContentOrdersNumber}>
                 <span className="text text_type_digits-default">#{number}</span>
-                <span className="text text_type_main-default text_color_inactive">{`${freshData === burgerData[0] ? "Сегодня" : burgerData[0]}, ${time}`}</span>
+                <FormattedDate className="text text_type_main-default text_color_inactive" date={new Date(updatedAt)} />
             </div>
             <h2 className="text text_type_main-medium ml-6 mr-6">{name}</h2>
             <p className={`text text_type_main-default ml-6 mt-2 ${statusTextColor}`}>{statusText}</p>
