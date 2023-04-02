@@ -1,5 +1,6 @@
 import { TSetIngredientsActions } from "../actions/feed";
 import {
+    FEED_CLOSE,
     FEED_MESSAGE,
 } from '../constants'
 
@@ -41,6 +42,28 @@ export const feedReducer = (state = initialState, action: TSetIngredientsActions
                     orders: action.payload.orders,
                     total: action.payload.total,
                     totalToday: action.payload.totalToday,
+                },
+            }
+        }
+
+        case FEED_INIT: {
+            return {
+                items: {
+                    success: action.payload.success,
+                    orders: action.payload.orders,
+                    total: action.payload.total,
+                    totalToday: action.payload.totalToday,
+                },
+            }
+        }
+
+        case FEED_CLOSE: {
+            return {
+                items: {
+                    success: false,
+                    orders: [],
+                    total: null,
+                    totalToday: null
                 },
             }
         }

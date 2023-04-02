@@ -4,9 +4,9 @@ import { setCookie } from '../../utils/cookie';
 import {
     USER_SUCCEESS,
     AUTH_CHECKED,
-    REFRESH_TOKEN,
     USER_UPDATE
 } from '../constants';
+import { AppDispatch } from '../store';
 
 export interface IUserSuccessAction {
     readonly type: typeof USER_SUCCEESS;
@@ -15,10 +15,6 @@ export interface IUserSuccessAction {
 }
 export interface IAuthCheckedAction {
     readonly type: typeof AUTH_CHECKED;
-}
-export interface IRefreshTokenAction {
-    readonly type: typeof REFRESH_TOKEN;
-    readonly payload: TUser | null;
 }
 export interface IUserUpdateAction {
     readonly type: typeof USER_UPDATE;
@@ -29,7 +25,6 @@ export type TGetUserActions =
     | IUserSuccessAction
     | IAuthCheckedAction
     | IUserUpdateAction
-    | IRefreshTokenAction
 
 export function requestLogin(email: string, password: string) {
     return function (dispatch: (arg0: IUserSuccessAction & { payload: TUser; password: string; }) => void) {
@@ -59,7 +54,7 @@ export const checkAuth = () => (dispatch: (arg0: (dispatch: any) => void) => voi
 };
 
 function getUser() {
-    return function (dispatch: (arg0: TGetUserActions & { payload?: TUser }) => void) {
+    return function (dispatch: AppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {

@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
 import style from "./content-feed.module.css";
-import { v4 as uuidV4 } from "uuid";
-import { addZero } from "../../utils/data";
 import { TIngredients } from "../../types/data";
 
 export default function ContentFeed({ element }: any) {
@@ -41,19 +39,19 @@ export default function ContentFeed({ element }: any) {
             <div className={style.ContentFeedComponents}>
                 <div className={style.ContentFeedImageContainer}>
                     <span className={`${style.ContentFeedImageCounter} text text_type_main-small`}>{`${orderIngredients.length > 5 ? `+${orderIngredients.length - 5}` : ''}`}</span>
-                    {orderIngredients && orderIngredients.length > 5 && orderIngredients.slice(5, 6).map((element: TIngredients) =>
+                    {orderIngredients && orderIngredients.length > 5 && orderIngredients.slice(5, 6).map((element) =>
                         element.type !== "bun" && <img
                             className={`${style.ContentFeedImage} ${style.ContentFeedImageLast}`}
                             src={element.image_mobile}
                             alt={element.name}
-                            key={uuidV4()}></img>
+                            key={element._id}></img>
                     )}
-                    {orderIngredients && orderIngredients.slice(0, 5).reverse().map((element: TIngredients) =>
+                    {orderIngredients && orderIngredients.slice(0, 5).reverse().map((element) =>
                         <img
                             className={style.ContentFeedImage}
                             src={element.image_mobile}
                             alt={element.name}
-                            key={uuidV4()}></img>
+                            key={element._id}></img>
                     )}
                 </div>
                 <div className={style.ContentFeedPrice}>

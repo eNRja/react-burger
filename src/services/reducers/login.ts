@@ -1,6 +1,6 @@
 import { TUser } from '../../types/data';
 import { TGetUserActions } from '../actions/login';
-import { USER_SUCCEESS, AUTH_CHECKED, REFRESH_TOKEN, USER_UPDATE } from '../constants';
+import { USER_SUCCEESS, AUTH_CHECKED, USER_UPDATE } from '../constants';
 
 export type TUserState = {
     user: TUser | null,
@@ -29,13 +29,6 @@ export const userReducer = (state = initialState, action: TGetUserActions): TUse
                 ...state,
                 user: action.payload,
                 passwordUser: action.password,
-            }
-        }
-
-        case REFRESH_TOKEN: {
-            return {
-                ...state,
-                user: action.payload,
             }
         }
 

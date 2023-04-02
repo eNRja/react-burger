@@ -2,10 +2,7 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
-import { addZero } from "../../utils/data";
-import { v4 as uuidV4 } from "uuid";
 import style from "./content-orders.module.css";
-import { TIngredients } from "../../types/data";
 
 export default function ContentOrders({ element }: any) {
     const { _id, ingredients, name, number, updatedAt, status } = element
@@ -44,19 +41,19 @@ export default function ContentOrders({ element }: any) {
             <div className={style.ContentOrdersComponents}>
                 <div className={style.ContentOrdersImageContainer}>
                     <span className={`${style.ContentOrdersImageCounter} text text_type_main-small`}>{`${orderIngredients.length > 5 ? `+${orderIngredients.length - 5}` : ''}`}</span>
-                    {orderIngredients && orderIngredients.length > 5 && orderIngredients.slice(5, 6).map((element: TIngredients) =>
+                    {orderIngredients && orderIngredients.length > 5 && orderIngredients.slice(5, 6).map((element) =>
                         element.type !== "bun" && <img
                             className={`${style.ContentOrdersImage} ${style.ContentOrdersImageLast}`}
                             src={element.image_mobile}
                             alt={element.name}
-                            key={uuidV4()}></img>
+                            key={element._id}></img>
                     )}
-                    {orderIngredients && orderIngredients.slice(0, 5).reverse().map((element: TIngredients) =>
+                    {orderIngredients && orderIngredients.slice(0, 5).reverse().map((element) =>
                         <img
                             className={style.ContentOrdersImage}
                             src={element.image_mobile}
                             alt={element.name}
-                            key={uuidV4()}></img>
+                            key={element._id}></img>
                     )}
                 </div>
                 <div className={style.ContentOrdersPrice}>

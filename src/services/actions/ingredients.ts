@@ -9,6 +9,7 @@ import {
     DECREASE_BUN,
     RESET_COUNTER
 } from '../constants';
+import { AppDispatch } from '../store';
 
 
 export interface IGetItemsRequestAction {
@@ -48,7 +49,7 @@ export type TGetItemsActions =
 
 export function getIngredients() {
 
-    return function (dispatch: (arg0: TGetItemsActions & { payload?: Array<TIngredients> }) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: GET_ITEMS_REQUEST
         })

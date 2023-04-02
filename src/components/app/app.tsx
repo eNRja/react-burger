@@ -34,7 +34,6 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getIngredients())
-    dispatch(checkAuth());
   }, [dispatch]);
 
   return (
@@ -118,24 +117,6 @@ export default function App() {
               </Modal>
             }
           />
-        </Routes>
-      )}
-
-      {background && (
-        <Routes location={location}>
-          <Route
-            path="/feed/:feedId"
-            element={
-              <Modal onClose={onModalClose}>
-                <ModalFeedContent />
-              </Modal>
-            }
-          />
-        </Routes>
-      )}
-
-      {background && (
-        <Routes location={location}>
           <Route
             path="/profile/orders/:orderId"
             element={
@@ -144,6 +125,14 @@ export default function App() {
                   <ModalOrderContent />
                 </Modal>
               </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/feed/:feedId"
+            element={
+              <Modal onClose={onModalClose}>
+                <ModalFeedContent />
+              </Modal>
             }
           />
         </Routes>

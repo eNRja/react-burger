@@ -3,7 +3,7 @@ import ContentOrders from '../components/content-orders/content-orders';
 import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
 import { useDispatch, useSelector } from '../hooks/hooks';
 import { orderCloseAction, orderInitAction, TOrderArr } from '../services/actions/orders';
-import { TOrdersState } from '../services/reducers/orders';
+import { TOrders, TOrdersState } from '../services/reducers/orders';
 import { wsUrl } from '../utils/config';
 import { getCookie } from '../utils/cookie';
 import style from './orders.module.css'
@@ -26,11 +26,12 @@ export function OrdersPage() {
             <main className={style.OrdersMain}>
                 <ProfileNavBar />
                 <div className={style.Orders}>
-                    {items.orders && items.orders.reverse().map((element: TOrderArr) =>
+                    {items.orders && items.orders.slice(0).reverse().map((element) =>
                         <ContentOrders key={element._id} element={element} />)
                     }
                 </div>
             </main>
         );
     }
-} 
+}
+// slice(0) для копирования массива

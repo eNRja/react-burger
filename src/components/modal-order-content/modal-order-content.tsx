@@ -1,4 +1,4 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "../../hooks/hooks";
@@ -8,7 +8,6 @@ import { TOrdersState } from "../../services/reducers/orders";
 import { TIngredients } from "../../types/data";
 import { wsUrl } from "../../utils/config";
 import { getCookie } from "../../utils/cookie";
-import { addZero } from "../../utils/data";
 import style from "./modal-order-content.module.css";
 
 export default function ModalOrderContent() {
@@ -21,10 +20,6 @@ export default function ModalOrderContent() {
     })
     const statusText = element && element.status === "done" ? "Создан" : element && element.status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = element && element.status === "done" ? "" : element && element.status === "pending" ? "text_color_success" : "text_color_error";
-    const Data = new Date()
-    const freshData = `${addZero(Data.getFullYear())}-${addZero(Data.getMonth() + 1)}-${addZero(Data.getDate())}`
-    const burgerData = element && element.updatedAt.split('T');
-    const time = burgerData && burgerData[1].slice(0, 5);
 
     const reduceIngredients = element && element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
         label[ingredient] = (label[ingredient] || 0) + 1;
@@ -70,7 +65,7 @@ export default function ModalOrderContent() {
                     )}
                 </div>
                 <div className={style.OrderFooter}>
-                    <span className="text text_type_main-default text_color_inactive">{`${freshData === burgerData[0] ? "Сегодня" : burgerData[0]}, ${time}`}</span>
+                    <FormattedDate className="text text_type_main-default text_color_inactive" date={new Date(element.updatedAt)} />
                     <div className={style.OrderCounter}>
                         <span className="text text_type_digits-default mr-2">{count}</span>
                         <CurrencyIcon type="primary" />

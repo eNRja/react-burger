@@ -26,6 +26,7 @@ export function ForogotPasswordPage() {
         navigate('/reset-password');
     };
 
+
     return (
         < main className={style.ForgotPasswordMain}>
             <form className={style.ForgotPasswordForm} onSubmit={onSubmitReset}>

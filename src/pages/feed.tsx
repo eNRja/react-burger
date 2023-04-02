@@ -44,7 +44,7 @@ export function FeedPage() {
                                 <h2 className="text text_type_main-medium mb-6">В работе:</h2>
                                 {items.orders && items.orders.filter(item => item.status === "pending").slice(0, 10).map((element: TFeedArr) =>
                                     element.status === "pending" &&
-                                    <span key={element._id} className={`${style.FeedRightColumnOrdersReadyNumber} text text_type_digits-default text_color_success mb-2`}>{`0${element.number}`}</span>
+                                    <span key={element._id} className={`${style.FeedRightColumnOrdersReadyNumber} text text_type_digits-default mb-2`}>{`0${element.number}`}</span>
                                 )}
                             </div>
                         </div>
