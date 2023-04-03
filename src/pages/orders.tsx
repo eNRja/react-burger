@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import ContentOrders from '../components/content-orders/content-orders';
 import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
 import { useDispatch, useSelector } from '../hooks/hooks';
-import { orderCloseAction, orderInitAction, TOrderArr } from '../services/actions/orders';
-import { TOrders, TOrdersState } from '../services/reducers/orders';
+import { orderCloseAction, orderInitAction } from '../services/actions/orders';
+import { TOrdersState } from '../services/reducers/orders';
 import { wsUrl } from '../utils/config';
 import { getCookie } from '../utils/cookie';
 import style from './orders.module.css'

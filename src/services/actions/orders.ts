@@ -6,6 +6,7 @@ import {
     ORDERS_CLOSED,
     ORDERS_ERROR,
 } from '../constants';
+import { AppDispatch } from '../store';
 
 export type TOrdersWsActions = {
     init: 'ORDERS_INIT',
@@ -42,6 +43,10 @@ export interface IFeedInitAction {
 export interface FeedCloseAction {
     readonly type: typeof ORDERS_CLOSE;
 }
+export interface IOrderErrorAction {
+    readonly type: typeof ORDERS_ERROR;
+    payload: string
+}
 export interface FeedMessageAction {
     readonly type: typeof ORDERS_MESSAGE;
     payload: {
@@ -56,9 +61,10 @@ export type TSetIngredientsActions =
     | IFeedInitAction
     | FeedCloseAction
     | FeedMessageAction
+    | IOrderErrorAction
 
 export function orderInitAction(wsUrl: string) {
-    return function (dispatch: (arg0: IFeedInitAction) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: ORDERS_INIT,
             payload: wsUrl
@@ -67,9 +73,18 @@ export function orderInitAction(wsUrl: string) {
 }
 
 export function orderCloseAction() {
-    return function (dispatch: (arg0: FeedCloseAction) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: ORDERS_CLOSE
+        })
+    }
+}
+
+export function orderErrorAction(type: string) {
+    return function (dispatch: AppDispatch) {
+        dispatch({
+            type: ORDERS_ERROR,
+            payload: type
         })
     }
 }

@@ -27,7 +27,8 @@ describe('draggable-ingredients reducer', () => {
             payload: ingredient1Drag
         }))
             .toEqual({
-                items: [ingredient1Drag], bun: null, dragIngredients: null
+                ...initialState,
+                items: [ingredient1Drag]
             });
     });
 
@@ -37,20 +38,21 @@ describe('draggable-ingredients reducer', () => {
             payload: bunDrag
         }))
             .toEqual({
-                items: [], bun: bunDrag, dragIngredients: null
+                ...initialState,
+                bun: bunDrag
             });
     });
 
     it("should handle DRAGGABLE_INGREDIENT_DELETE", () => {
         expect(draggableIngredientReducer(initialState, { type: DRAGGABLE_INGREDIENT_DELETE }))
-            .toEqual({ items: [], bun: null, dragIngredients: null });
+            .toEqual({ ...initialState });
     });
 
     it("should handle DRAGGABLE_BUN_DELETE", () => {
         expect(draggableIngredientReducer(initialState, {
             type: DRAGGABLE_BUN_DELETE
         }))
-            .toEqual({ items: [], bun: null, dragIngredients: null });
+            .toEqual({ ...initialState });
     });
 
     it("should handle DRAGGABLE_INGREDIENT_MOVE", () => {
@@ -64,7 +66,7 @@ describe('draggable-ingredients reducer', () => {
 
     it("should handle DRAGGABLE_INGREDIENTS_CLEAR", () => {
         expect(draggableIngredientReducer(initialState, { type: DRAGGABLE_INGREDIENTS_CLEAR }))
-            .toEqual({ items: [], bun: null, dragIngredients: null });
+            .toEqual({ ...initialState });
     });
 
 })

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './profile.module.css';
-import { checkAuth, requestUpdateUser } from '../services/actions/login';
+import { requestUpdateUser } from '../services/actions/login';
 import { useDispatch, useSelector } from '../hooks/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
@@ -24,13 +24,13 @@ export function ProfilePage() {
     const [emailIcon, setEmailIcon] = useState<keyof TICons | undefined>("EditIcon");
     const [passwordDisabled, setPasswordDisabled] = useState(true);
     const [passwordIcon, setPasswordIcon] = useState<keyof TICons | undefined>("EditIcon");
-      
+
     useEffect(() => {
-        if (user && user.success) {
-            setName(user.user.name);
-            setEmail(user.user.email);
-            passwordUser && setPassword(passwordUser);
-        }
+
+        user && setName(user.user.name);
+        user && setEmail(user.user.email);
+        passwordUser && setPassword(passwordUser);
+
     }, [user]);
 
     const onIconEmailClick = () => {

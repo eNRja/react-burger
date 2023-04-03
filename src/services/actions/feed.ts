@@ -6,6 +6,7 @@ import {
     FEED_CLOSED,
     FEED_ERROR,
 } from '../constants';
+import { AppDispatch } from '../store';
 
 export type TFeedWsActions = {
     init: 'FEED_INIT',
@@ -51,14 +52,20 @@ export interface FeedMessageAction {
         totalToday: number
     }
 }
+export interface IFeedErrorAction {
+    readonly type: typeof FEED_ERROR;
+    payload: string
+}
 
 export type TSetIngredientsActions =
     | IFeedInitAction
     | FeedCloseAction
     | FeedMessageAction
+    | FeedCloseAction
+    | IFeedErrorAction
 
 export function feedInitAction(wsUrl: string) {
-    return function (dispatch: (arg0: IFeedInitAction) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: FEED_INIT,
             payload: wsUrl
@@ -67,9 +74,18 @@ export function feedInitAction(wsUrl: string) {
 }
 
 export function feedCloseAction() {
-    return function (dispatch: (arg0: FeedCloseAction) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: FEED_CLOSE
+        })
+    }
+}
+
+export function feedErrorAction(type: string) {
+    return function (dispatch: AppDispatch) {
+        dispatch({
+            type: FEED_ERROR,
+            payload: type
         })
     }
 }

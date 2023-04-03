@@ -14,6 +14,12 @@ export const socketMiddleware = (wsActions: TFeedWsActions | TOrdersWsActions): 
     }
 
     if (socket) {
+      socket.onerror = event => {
+        dispatch({
+          type: wsActions.error,
+          payload: event.type
+        });
+      };
       socket.onmessage = (event) => {
         const parsed = JSON.parse(event.data);
         dispatch({

@@ -1,34 +1,36 @@
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
+import { TOrders } from "../../services/reducers/orders";
 import style from "./content-orders.module.css";
 
-export default function ContentOrders({ element }: any) {
+const ContentOrders = ({ element }: { element: TOrders }) => {
     const { _id, ingredients, name, number, updatedAt, status } = element
     const reducer = useSelector<TIngredientsState>(state => state.ingredient);
     const location = useLocation();
     const statusText = status === "done" ? "Создан" : status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = status === "done" ? "" : status === "pending" ? "text_color_success" : "text_color_error";
 
-    const orderIngredients = reducer.ingredients.filter(item => {
+    const orderIngredients = useMemo(() => reducer.ingredients.filter(item => {
         for (let i = 0; i <= ingredients.length; i++) {
             if (ingredients[i] && (ingredients[i] === item._id)) {
                 return item
             }
         }
-    })
+    }), [reducer]);
 
-    const reduceIngredients = element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
+    const reduceIngredients = useMemo(() => element.ingredients.reduce((label: { [x: string]: any; }, ingredient) => {
         label[ingredient] = (label[ingredient] || 0) + 1;
         return label;
-    }, {})
+    }, {}), [element]);
 
-    const count = orderIngredients.map(item => item.type === "bun" ? item.price * 2 : (item.price * reduceIngredients[item._id]))
+    const count = useMemo(() => orderIngredients.map(item => item.type === "bun" ? item.price * 2 : (item.price * reduceIngredients[item._id]))
         .reduce(
             (accumulator, currentValue) => {
                 return accumulator + currentValue;
-            })
+            }), [orderIngredients]);
 
     return (
         <Link to={`/profile/orders/${_id}`} state={{ background: location }} className={style.ContentOrders}>
@@ -64,3 +66,5 @@ export default function ContentOrders({ element }: any) {
         </Link>
     )
 }
+
+export default ContentOrders

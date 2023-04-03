@@ -15,7 +15,7 @@ import {
   FeedPage
 } from '../../pages';
 import Modal from '../modal/modal'
-import { checkAuth } from '../../services/actions/login';
+import { getUserWithRefresh } from '../../services/actions/login';
 import ModalContent from '../modal-content/modal-content';
 import { useDispatch } from '../../hooks/hooks';
 import { getIngredients } from '../../services/actions/ingredients';
@@ -33,6 +33,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    dispatch(getUserWithRefresh())
     dispatch(getIngredients())
   }, [dispatch]);
 

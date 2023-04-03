@@ -36,6 +36,8 @@ describe('constuctor page', () => {
                 cy.get('[name=password]').type(login.password);
                 cy.get('button').contains('Войти').click().wait(3000);
                 cy.get('button').contains('Оформить заказ').click();
+            } else {
+                cy.get('button').contains('Оформить заказ').click();
             }
         })
         cy.get('[class^=order-details_ModalOrderTitle_]', { timeout: 20000 }).contains(/\d+/);

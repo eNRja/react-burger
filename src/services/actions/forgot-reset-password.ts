@@ -5,6 +5,7 @@ import {
     RESET_PASSWORD,
     PROTECT_RESET_PAGE
 } from '../constants'
+import { AppDispatch } from '../store';
 
 export interface IForgotPasswordAction {
     readonly type: typeof FORGOT_PASSWORD,
@@ -43,7 +44,7 @@ export function requestForgotPassword(email: string, goToResetPasswordPage: { ()
 }
 
 export function requestResetPassword(password: string, token: string) {
-    return function (dispatch: (arg0: { type: "RESET_PASSWORD"; payload: TFrogotPass }) => void) {
+    return function (dispatch: AppDispatch) {
         resetPasswordApi(password, token)
             .then((data) => {
                 dispatch({
@@ -58,7 +59,7 @@ export function requestResetPassword(password: string, token: string) {
 }
 
 export function checkProtectResetPage(bool: boolean) {
-    return function (dispatch: (arg0: { type: "PROTECT_RESET_PAGE"; payload: boolean }) => void) {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: PROTECT_RESET_PAGE,
             payload: bool

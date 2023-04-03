@@ -7,6 +7,7 @@ import {
     ORDER_CLOSE,
     SET_LOADER,
 } from '../constants';
+import { AppDispatch } from '../store';
 
 export interface IOrderAddAction {
     readonly type: typeof ORDER_ADD;
@@ -39,7 +40,7 @@ export const setLoaderAction = (loader: boolean): ISetLoaderAction => ({
 });
 
 export function sendIngredients(burgerIngredient: string[]) {
-    return function (dispatch: (arg0: TSetIngredientsActions & { payload?: TOrder, loader?: boolean }) => void) {
+    return function (dispatch: AppDispatch) {
         makeOrderApi(burgerIngredient)
             .then((data) => {
                 dispatch({

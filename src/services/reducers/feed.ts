@@ -1,6 +1,7 @@
 import { TSetIngredientsActions } from "../actions/feed";
 import {
     FEED_CLOSE,
+    FEED_ERROR,
     FEED_MESSAGE,
 } from '../constants'
 
@@ -15,21 +16,25 @@ export type TOrdersFeed = {
 }
 
 export type TFeedState = {
+    wsConnected: boolean,
     items: {
         success: boolean,
         orders: TOrdersFeed[],
         total: number | null,
         totalToday: number | null
     },
+    error?: string | null,
 };
 
-const initialState = {
+export const initialState = {
+    wsConnected: false,
     items: {
         success: false,
         orders: [],
         total: null,
         totalToday: null
     },
+    error: null
 };
 
 export const feedReducer = (state = initialState, action: TSetIngredientsActions): TFeedState => {
@@ -37,6 +42,8 @@ export const feedReducer = (state = initialState, action: TSetIngredientsActions
 
         case FEED_MESSAGE: {
             return {
+                ...state,
+                wsConnected: true,
                 items: {
                     success: action.payload.success,
                     orders: action.payload.orders,
@@ -46,27 +53,18 @@ export const feedReducer = (state = initialState, action: TSetIngredientsActions
             }
         }
 
-        case FEED_INIT: {
+        case FEED_ERROR:
             return {
-                items: {
-                    success: action.payload.success,
-                    orders: action.payload.orders,
-                    total: action.payload.total,
-                    totalToday: action.payload.totalToday,
-                },
-            }
-        }
+                ...state,
+                error: action.payload,
+                wsConnected: false
+            };
 
-        case FEED_CLOSE: {
+        case FEED_CLOSE:
             return {
-                items: {
-                    success: false,
-                    orders: [],
-                    total: null,
-                    totalToday: null
-                },
-            }
-        }
+                ...state,
+                wsConnected: false
+            };
 
         default: {
             return state

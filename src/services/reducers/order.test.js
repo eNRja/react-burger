@@ -24,28 +24,24 @@ describe('order reducer', () => {
             payload: orderItemsTest
         }))
             .toEqual({
+                ...initialState,
                 orderItems: orderItemsTest,
-                setmodal: true,
-                orderFailed: false,
-                loader: false
+                setmodal: true
             });
     });
 
     it("should handle ORDER_CLOSE", () => {
         expect(orderReducer({
-            orderItems: null,
+            ...initialState,
             setmodal: true,
-            orderFailed: false,
-            loader: false
         }, {
             type: ORDER_CLOSE,
             setmodal: false
         }))
             .toEqual({
-                orderItems: null,
+                ...initialState,
                 setmodal: false,
-                orderFailed: false,
-                loader: false
+
             });
     });
 
@@ -55,9 +51,7 @@ describe('order reducer', () => {
             loader: true
         }))
             .toEqual({
-                orderItems: null,
-                setmodal: false,
-                orderFailed: false,
+                ...initialState,
                 loader: true
             });
     });

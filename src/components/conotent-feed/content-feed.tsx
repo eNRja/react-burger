@@ -3,31 +3,32 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
 import { TIngredientsState } from "../../services/reducers/ingredient";
 import style from "./content-feed.module.css";
-import { TIngredients } from "../../types/data";
+import { TOrdersFeed } from "../../services/reducers/feed";
+import { useMemo } from "react";
 
-export default function ContentFeed({ element }: any) {
+export default function ContentFeed({ element }: { element: TOrdersFeed }) {
     const { _id, ingredients, name, number, updatedAt } = element
     const reducer = useSelector<TIngredientsState>(state => state.ingredient);
     const location = useLocation();
 
-    const orderIngredients = reducer.ingredients.filter(item => {
+    const orderIngredients = useMemo(() => reducer.ingredients.filter(item => {
         for (let i = 0; i <= ingredients.length; i++) {
             if (ingredients[i] && (ingredients[i] === item._id)) {
                 return item
             }
         }
-    })
+    }), [reducer])
 
-    const reduceIngredients = element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
+    const reduceIngredients = useMemo(() => element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
         label[ingredient] = (label[ingredient] || 0) + 1;
         return label;
-    }, {})
+    }, {}), [element])
 
-    const count = orderIngredients.map(item => item.type === "bun" ? item.price * 2 : (item.price * reduceIngredients[item._id]))
+    const count = useMemo(() => orderIngredients.map(item => item.type === "bun" ? item.price * 2 : (item.price * reduceIngredients[item._id]))
         .reduce(
             (accumulator, currentValue) => {
                 return accumulator + currentValue;
-            })
+            }), [orderIngredients])
 
     return (
         <Link to={`/feed/${_id}`} state={{ background: location }} className={style.ContentFeed}>

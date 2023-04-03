@@ -1,5 +1,5 @@
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "../../hooks/hooks";
 import { feedCloseAction, feedInitAction } from "../../services/actions/feed";
@@ -20,22 +20,23 @@ export default function ModalFeedContent() {
     const statusText = element && element.status === "done" ? "Создан" : element && element.status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = element && element.status === "done" ? "" : element && element.status === "pending" ? "text_color_success" : "text_color_error";
 
-    const reduceIngredients = element && element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
+    const reduceIngredients = useMemo(() => element && element.ingredients.reduce((label: { [x: string]: any; }, ingredient: string | number) => {
         label[ingredient] = (label[ingredient] || 0) + 1;
         return label;
-    }, {})
+    }, {}), [element])
 
-    const filteredIngredients: any = reducer.ingredients.filter((elem) => {
+    const filteredIngredients = useMemo(() => reducer.ingredients.filter((elem) => {
         return reduceIngredients && reduceIngredients[elem._id];
-    })
+    }), [reducer])
 
-    const count = filteredIngredients.length !== 0 && filteredIngredients.map((item: {
+    const count = useMemo(() => filteredIngredients.length !== 0 && filteredIngredients.map((item: {
         _id: string; type: string; price: number;
     }) =>
         item.type === "bun" ? item.price * 2 : (item.price * reduceIngredients[item._id])).reduce(
             (accumulator: number, currentValue: number) => {
                 return accumulator + currentValue;
-            })
+            }),
+        [filteredIngredients])
 
     useEffect(() => {
         dispatch(feedInitAction(`${wsUrl}/all`));

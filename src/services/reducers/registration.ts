@@ -6,7 +6,7 @@ export type TUserReg = {
     userRegistration: TUser | null
 };
 
-const initialState = {
+export const initialState = {
     userRegistration: null
 };
 

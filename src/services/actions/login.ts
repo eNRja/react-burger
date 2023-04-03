@@ -27,7 +27,7 @@ export type TGetUserActions =
     | IUserUpdateAction
 
 export function requestLogin(email: string, password: string) {
-    return function (dispatch: (arg0: IUserSuccessAction & { payload: TUser; password: string; }) => void) {
+    return function (dispatch: AppDispatch) {
         postLoginApi(email, password)
             .then((data) => {
                 if (data.success) {
@@ -49,10 +49,6 @@ export function requestLogin(email: string, password: string) {
     }
 }
 
-export const checkAuth = () => (dispatch: (arg0: (dispatch: any) => void) => void) => {
-    dispatch(getUserWithRefresh());
-};
-
 function getUser() {
     return function (dispatch: AppDispatch) {
         getAuth()
@@ -71,8 +67,8 @@ function getUser() {
     }
 }
 
-function getUserWithRefresh() {
-    return function (dispatch: (arg0: TGetUserActions & { payload?: TUser }) => void) {
+export function getUserWithRefresh() {
+    return function (dispatch: AppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {
@@ -96,14 +92,14 @@ function getUserWithRefresh() {
                         })
                 } else {
                     dispatch({ type: AUTH_CHECKED });
-                    return Promise.reject(`Error: ${err}`);
+                    console.log(err);
                 }
             })
     }
 }
 
 export function requestLogout() {
-    return function (dispatch: (arg0: IUserSuccessAction & { payload: null; password: string; }) => void) {
+    return function (dispatch: AppDispatch) {
 
         postLogout()
             .then((data) => {
@@ -122,7 +118,7 @@ export function requestLogout() {
 }
 
 export function requestUpdateUser(name: string, email: string, password: string) {
-    return function (dispatch: (arg0: IUserUpdateAction & { payload: TUser; }) => void) {
+    return function (dispatch: AppDispatch) {
         postUpdateUser(name, email, password)
             .then((data) => {
                 if (data.success) {

@@ -1,6 +1,7 @@
 import { postRegistrationApi } from '../../api/api';
 import { TUser } from '../../types/data';
 import { REGISTRATION_SUCCEESS } from '../constants';
+import { AppDispatch } from '../store';
 
 export interface IRegistrationSuccessAction {
     readonly type: typeof REGISTRATION_SUCCEESS;
@@ -8,7 +9,7 @@ export interface IRegistrationSuccessAction {
 }
 
 export function requestRegistration(email: string, password: string, name: string) {
-    return function (dispatch: (arg0: IRegistrationSuccessAction &{ payload: TUser }) => void) {
+    return function (dispatch: AppDispatch) {
         postRegistrationApi(email, password, name)
             .then((data) => {
                 dispatch({

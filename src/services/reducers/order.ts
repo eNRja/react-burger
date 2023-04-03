@@ -9,7 +9,7 @@ export type TOrders = {
     loader: boolean
 };
 
-const initialState = {
+export const initialState = {
     orderItems: null,
     setmodal: false,
     orderFailed: false,

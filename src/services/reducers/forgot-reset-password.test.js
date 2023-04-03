@@ -22,9 +22,8 @@ describe('forgot password reducer', () => {
             payload: { success: true, message: "Reset email sent" }
         }))
             .toEqual({
+                ...initialState,
                 itemRequest: { success: true, message: "Reset email sent" },
-                passwordRequest: null,
-                protectedResetPage: false
             });
     });
 
@@ -34,9 +33,8 @@ describe('forgot password reducer', () => {
             payload: { success: true, message: "Password successfully reset" }
         }))
             .toEqual({
-                itemRequest: null,
+                ...initialState,
                 passwordRequest: { success: true, message: "Password successfully reset" },
-                protectedResetPage: false
             });
     });
 
@@ -46,8 +44,7 @@ describe('forgot password reducer', () => {
             payload: true
         }))
             .toEqual({
-                itemRequest: null,
-                passwordRequest: null,
+                ...initialState,
                 protectedResetPage: true
             });
     });

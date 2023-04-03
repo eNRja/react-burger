@@ -15,7 +15,7 @@ export type TDragState = {
     dragIngredients: Array<TDragItem> | null,
 };
 
-const initialState = {
+export const initialState = {
     items: [],
     bun: null,
     dragIngredients: null,

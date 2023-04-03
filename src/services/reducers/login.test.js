@@ -35,8 +35,7 @@ describe('login reducer', () => {
             type: AUTH_CHECKED
         }))
             .toEqual({
-                user: null,
-                passwordUser: '',
+                ...initialState,
                 isAuthChecked: true,
             });
     });
@@ -47,9 +46,8 @@ describe('login reducer', () => {
             payload: userTest
         }))
             .toEqual({
+                ...initialState,
                 user: userTest,
-                passwordUser: '',
-                isAuthChecked: false,
             });
     });
 
