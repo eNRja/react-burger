@@ -31,7 +31,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "cypress": "cypress open cache clear",
-    "deploy-script": "npm run build && scp -r ./build/* satukov@130.193.51.234:/home/satukov/mesto-frontend"
+    "deploy-script": "npm run build && scp -r ./build/* satukov@158.160.38.120:/home/satukov/burger-frontend"
   },
   "eslintConfig": {
     "extends": [

@@ -7,4 +7,4 @@
 *  JavaScript
 *  React-Redux
 
-* [ссылка на проект](https://enrja.github.io/react-burger/)
+* [ссылка на проект](https://cosmo-burger.nomoredomains.monster/)
