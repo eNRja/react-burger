@@ -39,7 +39,7 @@ export default function BurgerComponents() {
             {bun &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-10 mb-4'
+                        extraClass='ml-8 mb-4'
                         type={"top"}
                         text={`${bun.name}${' '}${'(верх)'}`}
                         price={bun.price}
@@ -60,7 +60,7 @@ export default function BurgerComponents() {
             {bun &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-10 mt-4'
+                        extraClass='ml-8 mt-4'
                         type={"bottom"}
                         isLocked={true}
                         text={`${bun.name}${' '}${'(низ)'}`}
