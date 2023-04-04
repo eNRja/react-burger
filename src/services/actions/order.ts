@@ -1,4 +1,5 @@
 import { makeOrderApi } from '../../api/api';
+import { TAppDispatch } from '../../types';
 import { TOrder } from '../../types/data';
 import {
     DRAGGABLE_INGREDIENTS_CLEAR,
@@ -7,7 +8,6 @@ import {
     ORDER_CLOSE,
     SET_LOADER,
 } from '../constants';
-import { AppDispatch } from '../store';
 
 export interface IOrderAddAction {
     readonly type: typeof ORDER_ADD;
@@ -40,7 +40,7 @@ export const setLoaderAction = (loader: boolean): ISetLoaderAction => ({
 });
 
 export function sendIngredients(burgerIngredient: string[]) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         makeOrderApi(burgerIngredient)
             .then((data) => {
                 dispatch({

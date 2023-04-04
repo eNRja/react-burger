@@ -4,7 +4,6 @@ import style from './slices.module.css';
 import { DRAGGABLE_INGREDIENT_MOVE } from '../../services/constants';
 import { useDrag, useDrop, XYCoord } from "react-dnd";
 import { useDispatch, useSelector } from '../../hooks/hooks';
-import { TDragState } from '../../services/reducers/draggable-ingredients';
 import { TDragItem } from '../../types/data';
 import { DraggableIngredientDeleteAction } from '../../services/actions/draggable-ingredients';
 import { decreaseCounter } from '../../services/actions/ingredients';
@@ -13,7 +12,7 @@ export default function Slices({ element }: { element: TDragItem }) {
     const ref = useRef<HTMLLIElement>(null);
     const dispatch = useDispatch();
     const { uuid, _id, price, image_mobile, name } = element;
-    const dragIngredients = useSelector<TDragState>(state => state.ingredientList)
+    const dragIngredients = useSelector(state => state.ingredientList)
 
     const onDelete = () => {
         dispatch(DraggableIngredientDeleteAction(uuid))

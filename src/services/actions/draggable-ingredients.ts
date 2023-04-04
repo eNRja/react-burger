@@ -43,23 +43,23 @@ export type TDragActions =
     | IDraggableIngredientMoveAction
     | IDraggableIngredientClearAction
 
-export const DraggableBunDeleteAction = (): IDraggableBunDeleteAction => ({
+export const DraggableBunDeleteAction = (): TDragActions => ({
     type: DRAGGABLE_BUN_DELETE
 });
-export const DraggableIngredientDeleteAction = (uuid: string): IDraggableIngredientDeleteAction => ({
+export const DraggableIngredientDeleteAction = (uuid: string): TDragActions => ({
     type: DRAGGABLE_INGREDIENT_DELETE,
     uuid
 });
-export const DraggableIngredientMoveAction = (dragIndex: any, hoverIndex: any): IDraggableIngredientMoveAction => ({
+export const DraggableIngredientMoveAction = (dragIndex: any, hoverIndex: any): TDragActions => ({
     type: DRAGGABLE_INGREDIENT_MOVE,
     dragIndex,
     hoverIndex
 });
-export const DraggableIngredientClearAction = (): IDraggableIngredientClearAction => ({
+export const DraggableIngredientClearAction = (): TDragActions => ({
     type: DRAGGABLE_INGREDIENTS_CLEAR
 });
 
-export function getDraggableIngredient(payload: TDragItem): IGetDraggableIngredientAction | IGetDraggableBunAction {
+export function getDraggableIngredient(payload: TDragItem): TDragActions {
     if (payload.type !== "bun") {
         return {
             type: GET_DRAGGABLE_INGREDIENT,

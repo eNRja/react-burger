@@ -1,4 +1,4 @@
-import { TSetIngredientsActions } from "../actions/feed";
+import { TSetFeedIngredientsActions } from "../actions/feed";
 import {
     FEED_CLOSE,
     FEED_ERROR,
@@ -26,7 +26,7 @@ export type TFeedState = {
     error?: string | null,
 };
 
-export const initialState = {
+export const initialState: TFeedState = {
     wsConnected: false,
     items: {
         success: false,
@@ -37,7 +37,7 @@ export const initialState = {
     error: null
 };
 
-export const feedReducer = (state = initialState, action: TSetIngredientsActions): TFeedState => {
+export const feedReducer = (state = initialState, action: TSetFeedIngredientsActions): TFeedState => {
     switch (action.type) {
 
         case FEED_MESSAGE: {

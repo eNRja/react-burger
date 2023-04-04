@@ -8,7 +8,7 @@ export type TUserState = {
     isAuthChecked: boolean
 };
 
-export const initialState = {
+export const initialState: TUserState = {
     user: null,
     passwordUser: '',
     isAuthChecked: false,

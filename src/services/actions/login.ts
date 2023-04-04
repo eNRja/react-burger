@@ -1,4 +1,5 @@
 import { postLoginApi, getAuth, postRefreshToken, postLogout, postUpdateUser } from '../../api/api';
+import { TAppDispatch } from '../../types';
 import { TUser } from '../../types/data';
 import { setCookie } from '../../utils/cookie';
 import {
@@ -6,7 +7,6 @@ import {
     AUTH_CHECKED,
     USER_UPDATE
 } from '../constants';
-import { AppDispatch } from '../store';
 
 export interface IUserSuccessAction {
     readonly type: typeof USER_SUCCEESS;
@@ -27,7 +27,7 @@ export type TGetUserActions =
     | IUserUpdateAction
 
 export function requestLogin(email: string, password: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         postLoginApi(email, password)
             .then((data) => {
                 if (data.success) {
@@ -50,7 +50,7 @@ export function requestLogin(email: string, password: string) {
 }
 
 function getUser() {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {
@@ -68,7 +68,7 @@ function getUser() {
 }
 
 export function getUserWithRefresh() {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {
@@ -92,14 +92,13 @@ export function getUserWithRefresh() {
                         })
                 } else {
                     dispatch({ type: AUTH_CHECKED });
-                    console.log(err);
                 }
             })
     }
 }
 
 export function requestLogout() {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
 
         postLogout()
             .then((data) => {
@@ -118,7 +117,7 @@ export function requestLogout() {
 }
 
 export function requestUpdateUser(name: string, email: string, password: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         postUpdateUser(name, email, password)
             .then((data) => {
                 if (data.success) {

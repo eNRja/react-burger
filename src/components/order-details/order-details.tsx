@@ -1,9 +1,8 @@
 import style from './order-details.module.css';
 import { useSelector } from '../../hooks/hooks';
-import { TOrders } from '../../services/reducers/order';
 
 const OrderDetails = () => {
-    const { orderItems } = useSelector<TOrders>(state => state.order);
+    const { orderItems } = useSelector(state => state.order);
 
     return (
         orderItems &&

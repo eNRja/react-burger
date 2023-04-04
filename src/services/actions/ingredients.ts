@@ -1,4 +1,5 @@
 import { getApiIngredients } from '../../api/api';
+import { TAppDispatch } from '../../types';
 import { TIngredients } from '../../types/data';
 import {
     GET_ITEMS_REQUEST,
@@ -9,8 +10,6 @@ import {
     DECREASE_BUN,
     RESET_COUNTER
 } from '../constants';
-import { AppDispatch } from '../store';
-
 
 export interface IGetItemsRequestAction {
     readonly type: typeof GET_ITEMS_REQUEST;
@@ -49,7 +48,7 @@ export type TGetItemsActions =
 
 export function getIngredients() {
 
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: GET_ITEMS_REQUEST
         })

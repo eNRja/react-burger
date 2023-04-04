@@ -4,10 +4,9 @@ import ContentFeed from '../components/conotent-feed/content-feed';
 import { useEffect } from 'react';
 import { wsUrl } from '../utils/config';
 import { feedCloseAction, feedInitAction, TFeedArr } from '../services/actions/feed';
-import { TFeedState } from '../services/reducers/feed';
 
 export function FeedPage() {
-    const { items } = useSelector<TFeedState>(state => state.feed);
+    const { items } = useSelector(state => state.feed);
     const dispatch = useDispatch();
     const frontTotal = items.total && items.total.toString().slice(0, 2);
     const backTotal = items.total && items.total.toString().slice(2);

@@ -2,13 +2,12 @@ import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burge
 import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
-import { TIngredientsState } from "../../services/reducers/ingredient";
 import { TOrders } from "../../services/reducers/orders";
 import style from "./content-orders.module.css";
 
 const ContentOrders = ({ element }: { element: TOrders }) => {
     const { _id, ingredients, name, number, updatedAt, status } = element
-    const reducer = useSelector<TIngredientsState>(state => state.ingredient);
+    const reducer = useSelector(state => state.ingredient);
     const location = useLocation();
     const statusText = status === "done" ? "Создан" : status === "pending" ? "Готовится" : "Отменён";
     const statusTextColor = status === "done" ? "" : status === "pending" ? "text_color_success" : "text_color_error";

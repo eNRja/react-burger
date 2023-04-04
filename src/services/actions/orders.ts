@@ -1,3 +1,4 @@
+import { TAppDispatch } from '../../types';
 import {
     ORDERS_INIT,
     ORDERS_CLOSE,
@@ -6,7 +7,6 @@ import {
     ORDERS_CLOSED,
     ORDERS_ERROR,
 } from '../constants';
-import { AppDispatch } from '../store';
 
 export type TOrdersWsActions = {
     init: 'ORDERS_INIT',
@@ -57,14 +57,14 @@ export interface FeedMessageAction {
     }
 }
 
-export type TSetIngredientsActions =
+export type TSetOrdersIngredientsActions =
     | IFeedInitAction
     | FeedCloseAction
     | FeedMessageAction
     | IOrderErrorAction
 
 export function orderInitAction(wsUrl: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: ORDERS_INIT,
             payload: wsUrl
@@ -73,7 +73,7 @@ export function orderInitAction(wsUrl: string) {
 }
 
 export function orderCloseAction() {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: ORDERS_CLOSE
         })
@@ -81,7 +81,7 @@ export function orderCloseAction() {
 }
 
 export function orderErrorAction(type: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: ORDERS_ERROR,
             payload: type

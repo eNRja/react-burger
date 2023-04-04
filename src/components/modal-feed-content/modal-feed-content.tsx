@@ -3,15 +3,13 @@ import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "../../hooks/hooks";
 import { feedCloseAction, feedInitAction } from "../../services/actions/feed";
-import { TFeedState } from "../../services/reducers/feed";
-import { TIngredientsState } from "../../services/reducers/ingredient";
 import { TIngredients } from "../../types/data";
 import { wsUrl } from "../../utils/config";
 import style from "./modal-feed-content.module.css";
 
 export default function ModalFeedContent() {
-    const { items } = useSelector<TFeedState>(state => state.feed);
-    const reducer = useSelector<TIngredientsState>(state => state.ingredient);
+    const { items } = useSelector(state => state.feed);
+    const reducer = useSelector(state => state.ingredient);
     const { feedId } = useParams();
     const dispatch = useDispatch();
     const element: any = items.orders.find((elem) => {
@@ -25,9 +23,9 @@ export default function ModalFeedContent() {
         return label;
     }, {}), [element])
 
-    const filteredIngredients = useMemo(() => reducer.ingredients.filter((elem) => {
+    const filteredIngredients = reducer.ingredients.filter((elem) => {
         return reduceIngredients && reduceIngredients[elem._id];
-    }), [reducer])
+    })
 
     const count = useMemo(() => filteredIngredients.length !== 0 && filteredIngredients.map((item: {
         _id: string; type: string; price: number;

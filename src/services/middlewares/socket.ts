@@ -1,9 +1,14 @@
 import { Middleware } from "redux";
-import { TRootState } from "../../types";
-import { TFeedWsActions } from "../actions/feed";
-import { TOrdersWsActions } from "../actions/orders";
 
-export const socketMiddleware = (wsActions: TFeedWsActions | TOrdersWsActions): Middleware<{}, TRootState> => (store) => {
+export type TWsActions = {
+  init: string;
+  closed: string;
+  error: string;
+  close: string;
+  message: string;
+};
+
+export const socketMiddleware = (wsActions: TWsActions): Middleware => (store) => {
   let socket: WebSocket | null = null;
 
   return (next) => (action) => {

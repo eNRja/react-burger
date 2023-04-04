@@ -3,14 +3,13 @@ import ContentOrders from '../components/content-orders/content-orders';
 import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
 import { useDispatch, useSelector } from '../hooks/hooks';
 import { orderCloseAction, orderInitAction } from '../services/actions/orders';
-import { TOrdersState } from '../services/reducers/orders';
 import { wsUrl } from '../utils/config';
 import { getCookie } from '../utils/cookie';
 import style from './orders.module.css'
 
 export function OrdersPage() {
     const dispatch = useDispatch();
-    const { items } = useSelector<TOrdersState>(state => state.orders);
+    const { items } = useSelector(state => state.orders);
 
     useEffect(() => {
         dispatch(orderInitAction(`${wsUrl}?token=${getCookie('token')}`));
@@ -34,4 +33,3 @@ export function OrdersPage() {
         );
     }
 }
-// slice(0) для копирования массива

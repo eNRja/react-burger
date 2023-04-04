@@ -2,10 +2,9 @@ import { useParams } from "react-router-dom";
 import "./modal-content.module.css";
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useSelector } from '../../hooks/hooks';
-import { TIngredientsState } from "../../services/reducers/ingredient";
 
 export default function ModalContent() {
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector<TIngredientsState>(state => state.ingredient);
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredient);
   const { ingredientId } = useParams();
 
   const element = ingredients.find(elem => {

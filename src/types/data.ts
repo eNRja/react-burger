@@ -11,7 +11,6 @@ export type TDragItem = {
 };
 
 export type TIngredientsOrder = {
-
     burgerIngredient: Array<TDragItem>
 }
 

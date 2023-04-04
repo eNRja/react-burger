@@ -1,4 +1,4 @@
-import { TSetIngredientsActions } from "../actions/orders";
+import { TSetOrdersIngredientsActions } from "../actions/orders";
 import {
     ORDERS_CLOSE,
     ORDERS_ERROR,
@@ -27,7 +27,7 @@ export type TOrdersState = {
     error?: string | null
 };
 
-export const initialState = {
+export const initialState: TOrdersState = {
     wsConnected: false,
     items: {
         success: false,
@@ -38,7 +38,7 @@ export const initialState = {
     error: null
 };
 
-export const ordersReducer = (state = initialState, action: TSetIngredientsActions): TOrdersState => {
+export const ordersReducer = (state = initialState, action: TSetOrdersIngredientsActions): TOrdersState => {
     switch (action.type) {
 
         case ORDERS_ERROR:

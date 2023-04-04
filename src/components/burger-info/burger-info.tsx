@@ -9,20 +9,17 @@ import { ORDER_CLOSE } from '../../services/constants'
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { TDragItem } from '../../types/data';
-import { TUserState } from '../../services/reducers/login';
-import { TOrders } from '../../services/reducers/order';
-import { TDragState } from '../../services/reducers/draggable-ingredients';
 
 export default function BurgerInfo() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { items, bun } = useSelector<TDragState>(state => state.ingredientList);
-    const { loader } = useSelector<TOrders>(state => state.order);
+    const { items, bun } = useSelector(state => state.ingredientList);
+    const { loader } = useSelector(state => state.order);
     const burgerIngredient = items.map((item: TDragItem) => item._id)
     const [modal, setModal] = useState(false);
     const calculation = useMemo(() => bun && calc(items, bun), [items, bun]);
-    const { setmodal } = useSelector<TOrders>(state => state.order);
-    const { user } = useSelector<TUserState>(state => state.login);
+    const { setmodal } = useSelector(state => state.order);
+    const { user } = useSelector(state => state.login);
     const styleButton = loader ? style.Button : ''
 
     useEffect(() => {

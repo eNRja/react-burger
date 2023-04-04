@@ -1,11 +1,11 @@
 import { forgotPasswordApi, resetPasswordApi } from '../../api/api';
+import { TAppDispatch } from '../../types';
 import { TFrogotPass } from '../../types/data';
 import {
     FORGOT_PASSWORD,
     RESET_PASSWORD,
     PROTECT_RESET_PAGE
 } from '../constants'
-import { AppDispatch } from '../store';
 
 export interface IForgotPasswordAction {
     readonly type: typeof FORGOT_PASSWORD,
@@ -26,7 +26,7 @@ export type TResetForgotPAssActions =
     | IProtectResetPageAction
 
 export function requestForgotPassword(email: string, goToResetPasswordPage: { (): void; (): void; }) {
-    return function (dispatch: (arg0: { type: "FORGOT_PASSWORD"; payload: TFrogotPass }) => void) {
+    return function (dispatch: TAppDispatch) {
         forgotPasswordApi(email)
             .then((data) => {
                 if (data.success) {
@@ -44,7 +44,7 @@ export function requestForgotPassword(email: string, goToResetPasswordPage: { ()
 }
 
 export function requestResetPassword(password: string, token: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         resetPasswordApi(password, token)
             .then((data) => {
                 dispatch({
@@ -59,7 +59,7 @@ export function requestResetPassword(password: string, token: string) {
 }
 
 export function checkProtectResetPage(bool: boolean) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: PROTECT_RESET_PAGE,
             payload: bool

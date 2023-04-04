@@ -6,7 +6,6 @@ import { requestUpdateUser } from '../services/actions/login';
 import { useDispatch, useSelector } from '../hooks/hooks';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import { ProfileNavBar } from '../components/profile-navbar/profile-navbar';
-import { TUserState } from '../services/reducers/login';
 
 export function ProfilePage() {
     const dispatch = useDispatch();
@@ -17,7 +16,7 @@ export function ProfilePage() {
     const inputNameRef = useRef(null);
     const inputEmailRef = useRef(null);
     const inputPasswordRef = useRef(null);
-    const { user, passwordUser } = useSelector<TUserState>((state) => state.login);
+    const { user, passwordUser } = useSelector((state) => state.login);
     const [nameDisabled, setNameDisabled] = useState(true);
     const [nameIcon, setNameIcon] = useState<keyof TICons | undefined>("EditIcon");
     const [emailDisabled, setEmailDisabled] = useState(true);

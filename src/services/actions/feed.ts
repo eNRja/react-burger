@@ -1,3 +1,4 @@
+import { TAppDispatch, TAppThunk } from '../../types';
 import {
     FEED_INIT,
     FEED_CLOSE,
@@ -6,7 +7,6 @@ import {
     FEED_CLOSED,
     FEED_ERROR,
 } from '../constants';
-import { AppDispatch } from '../store';
 
 export type TFeedWsActions = {
     init: 'FEED_INIT',
@@ -57,7 +57,7 @@ export interface IFeedErrorAction {
     payload: string
 }
 
-export type TSetIngredientsActions =
+export type TSetFeedIngredientsActions =
     | IFeedInitAction
     | FeedCloseAction
     | FeedMessageAction
@@ -65,7 +65,7 @@ export type TSetIngredientsActions =
     | IFeedErrorAction
 
 export function feedInitAction(wsUrl: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: FEED_INIT,
             payload: wsUrl
@@ -74,7 +74,7 @@ export function feedInitAction(wsUrl: string) {
 }
 
 export function feedCloseAction() {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: FEED_CLOSE
         })
@@ -82,7 +82,7 @@ export function feedCloseAction() {
 }
 
 export function feedErrorAction(type: string) {
-    return function (dispatch: AppDispatch) {
+    return function (dispatch: TAppDispatch) {
         dispatch({
             type: FEED_ERROR,
             payload: type

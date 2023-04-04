@@ -7,7 +7,7 @@
 
 .Button {
     display: flex;
-
+    margin-right: -32px;
     color: rgba(0, 0, 0, 0)
 }
 
@@ -34,7 +34,7 @@
     right: 0;
     margin: auto;
     margin-top: -24px;
-    margin-left: -114px;
+    margin-left: -82px;
     background: #FFF;
     border-radius: 50%;
     -webkit-animation: loader-1 2s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;
@@ -83,7 +83,7 @@
     bottom: 0;
     right: 0;
     margin: auto;
-    margin-left: -124px;
+    margin-left: -92px;
     height: 32px;
     width: 32px;
     -webkit-animation: loader-2 2s cubic-bezier(0.770, 0.000, 0.175, 1.000) infinite;

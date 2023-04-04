@@ -6,22 +6,29 @@ import { TSetIngredientsActions } from '../services/actions/order';
 import { IRegistrationSuccessAction } from '../services/actions/registration';
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import store from '../services/store';
+import { TSetFeedIngredientsActions } from '../services/actions/feed';
+import { TSetOrdersIngredientsActions } from '../services/actions/orders';
+import { Action, ActionCreator } from 'redux';
 
-export type TRootState = ReturnType<typeof store.getState>;
-
-export type TAppActions = TDragActions
+export type TAppActions =
+    | TDragActions
     | TResetForgotPAssActions
     | TGetItemsActions
     | TGetUserActions
     | TSetIngredientsActions
     | IRegistrationSuccessAction
+    | TSetFeedIngredientsActions
+    | TSetOrdersIngredientsActions
 
 
-export type TAppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    TRootState,
-    unknown,
-    TAppActions
+export type TAppThunk<ReturnType = void> = ActionCreator<
+    ThunkAction<
+        ReturnType,
+        TRootState,
+        Action,
+        TAppActions
+    >
 >;
 
 export type TAppDispatch = ThunkDispatch<TRootState, never, TAppActions>;
+export type TRootState = ReturnType<typeof store.getState>;

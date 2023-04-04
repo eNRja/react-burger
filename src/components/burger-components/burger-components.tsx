@@ -7,11 +7,10 @@ import { increaseCounter, decreaseBunCounter, decreaseCounter } from '../../serv
 import { getDraggableIngredient } from '../../services/actions/draggable-ingredients';
 import { useDispatch, useSelector } from '../../hooks/hooks';
 import { TDragItem, TIngredients } from '../../types/data';
-import { TDragState } from '../../services/reducers/draggable-ingredients';
 
 export default function BurgerComponents() {
     const dispatch = useDispatch();
-    const { items, bun } = useSelector<TDragState>(state => state.ingredientList);
+    const { items, bun } = useSelector(state => state.ingredientList);
 
     const [, drop] = useDrop<TDragItem & TIngredients>({
         accept: "BurgerConstructor",

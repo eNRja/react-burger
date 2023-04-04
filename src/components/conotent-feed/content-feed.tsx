@@ -1,14 +1,13 @@
 import { CurrencyIcon, FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "../../hooks/hooks";
-import { TIngredientsState } from "../../services/reducers/ingredient";
 import style from "./content-feed.module.css";
 import { TOrdersFeed } from "../../services/reducers/feed";
 import { useMemo } from "react";
 
 export default function ContentFeed({ element }: { element: TOrdersFeed }) {
     const { _id, ingredients, name, number, updatedAt } = element
-    const reducer = useSelector<TIngredientsState>(state => state.ingredient);
+    const reducer = useSelector(state => state.ingredient);
     const location = useLocation();
 
     const orderIngredients = useMemo(() => reducer.ingredients.filter(item => {

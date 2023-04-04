@@ -10,12 +10,12 @@ import {
 } from '../constants'
 
 export type TDragState = {
-    items: Array<TDragItem>,
+    items: TDragItem[],
     bun: TDragItem | null,
     dragIngredients: Array<TDragItem> | null,
 };
 
-export const initialState = {
+export const initialState: TDragState = {
     items: [],
     bun: null,
     dragIngredients: null,

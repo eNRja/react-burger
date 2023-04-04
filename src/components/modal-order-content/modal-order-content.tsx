@@ -3,16 +3,14 @@ import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "../../hooks/hooks";
 import { orderCloseAction, orderInitAction } from "../../services/actions/orders";
-import { TIngredientsState } from "../../services/reducers/ingredient";
-import { TOrdersState } from "../../services/reducers/orders";
 import { TIngredients } from "../../types/data";
 import { wsUrl } from "../../utils/config";
 import { getCookie } from "../../utils/cookie";
 import style from "./modal-order-content.module.css";
 
 export default function ModalOrderContent() {
-    const { items } = useSelector<TOrdersState>(state => state.orders);
-    const reducer = useSelector<TIngredientsState>(state => state.ingredient);
+    const { items } = useSelector(state => state.orders);
+    const reducer = useSelector(state => state.ingredient);
     const { orderId } = useParams();
     const dispatch = useDispatch();
     const element: any = items.orders.find((elem) => {
@@ -26,9 +24,9 @@ export default function ModalOrderContent() {
         return label;
     }, {}), [element])
 
-    const filteredIngredients = useMemo(() => reducer.ingredients.filter((elem) => {
+    const filteredIngredients = reducer.ingredients.filter((elem) => {
         return reduceIngredients && reduceIngredients[elem._id];
-    }), [reducer])
+    })
 
     const count = useMemo(() => filteredIngredients.length !== 0 && filteredIngredients.map((item: {
         _id: string; type: string; price: number;
@@ -41,6 +39,7 @@ export default function ModalOrderContent() {
 
     useEffect(() => {
         dispatch(orderInitAction(`${wsUrl}?token=${getCookie('token')}`));
+
         return () => {
             dispatch(orderCloseAction());
         };

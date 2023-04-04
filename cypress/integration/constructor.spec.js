@@ -3,6 +3,8 @@ const login = {
     password: "123321"
 }
 
+const burgerClass = '[class^=burger-components_BurgerComponents_]'
+
 describe('constuctor page', () => {
 
     beforeEach(() => {
@@ -20,15 +22,15 @@ describe('constuctor page', () => {
     it('create order', () => {
         const dataTransfer = new DataTransfer();
         cy.get('a').contains('Краторная булка').trigger('dragstart', { dataTransfer });
-        cy.get('[class^=burger-components_BurgerComponents_]').trigger('drop', { dataTransfer });
+        cy.get(burgerClass).trigger('drop', { dataTransfer });
         cy.get('a').contains('Соус фирменный Space Sauce').trigger('dragstart', { dataTransfer });
-        cy.get('[class^=burger-components_BurgerComponents_]').trigger('drop', { dataTransfer });
+        cy.get(burgerClass).trigger('drop', { dataTransfer });
         cy.get('a').contains('Филе Люминесцентного тетраодонтимформа').trigger('dragstart', { dataTransfer });
-        cy.get('[class^=burger-components_BurgerComponents_]').trigger('drop', { dataTransfer });
+        cy.get(burgerClass).trigger('drop', { dataTransfer });
         cy.get('a').contains('Хрустящие минеральные кольца').trigger('dragstart', { dataTransfer });
-        cy.get('[class^=burger-components_BurgerComponents_]').trigger('drop', { dataTransfer });
+        cy.get(burgerClass).trigger('drop', { dataTransfer });
         cy.get('a').contains('Мини-салат Экзо-Плантаго').trigger('dragstart', { dataTransfer });
-        cy.get('[class^=burger-components_BurgerComponents_]').trigger('drop', { dataTransfer });
+        cy.get(burgerClass).trigger('drop', { dataTransfer });
         cy.get('button').contains('Оформить заказ').click();
         cy.location('pathname').then(($pathname) => {
             if ($pathname === '/login') {

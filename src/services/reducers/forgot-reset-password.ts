@@ -8,7 +8,7 @@ export type TForgotResetState = {
     protectedResetPage: boolean
 };
 
-export const initialState = {
+export const initialState: TForgotResetState = {
     itemRequest: null,
     passwordRequest: null,
     protectedResetPage: false
