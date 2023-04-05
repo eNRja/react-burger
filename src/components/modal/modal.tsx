@@ -5,7 +5,7 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const modals = document.querySelector("#modals") as HTMLElement;
 
-const Modal = ({ onClose, titleModal, children } : {onClose: () => void, titleModal?: string, children?: JSX.Element}) => {
+const Modal = ({ onClose, children }: { onClose: () => void, children?: JSX.Element }) => {
 
     useEffect(() => {
         const handleEsc = (event: KeyboardEvent) => {
@@ -20,12 +20,7 @@ const Modal = ({ onClose, titleModal, children } : {onClose: () => void, titleMo
     return ReactDOM.createPortal(
         <div className={style.Modal}>
             <div className={style.ModalBlock}>
-                <div className={style.ModalHeader}>
-                    <h1 className={`${style.ModalTitle} text text_type_main-large`}>
-                        {titleModal}
-                    </h1>
-                    <button className={style.ModalEscBtn} onClick={onClose}></button>
-                </div>
+                <button className={style.ModalEscBtn} onClick={onClose}></button>
                 {children}
             </div >
             <ModalOverlay onClose={onClose} />

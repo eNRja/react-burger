@@ -1,14 +1,13 @@
 import style from './order-details.module.css';
-import { useAppSelector } from '../../hooks/hooks';
-import { TOrderItems } from '../../utils/data';
+import { useSelector } from '../../hooks/hooks';
 
 const OrderDetails = () => {
-    const { orderItems } = useAppSelector<TOrderItems>(state => state.order);
-    const lastOrder = orderItems[orderItems.length - 1];
+    const { orderItems } = useSelector(state => state.order);
 
     return (
+        orderItems &&
         <div className={style.ModalOrderDetails}>
-            <h2 className={`${style.ModalOrderTitle} text text_type_digits-large`}>{lastOrder.action.order.number}</h2>
+            <h2 className={`${style.ModalOrderTitle} text text_type_digits-large`}>{orderItems.order.number}</h2>
             <span className="text text_type_main-medium mt-8">идентификатор заказа</span>
             <div className={style.ModalOrderImg}></div>
             <p className="text text_type_main-default">Ваш заказ начали готовить</p>

@@ -6,3 +6,5 @@
 *  CSS
 *  JavaScript
 *  React-Redux
+
+* [ссылка на проект](https://cosmo-burger.nomoredomains.monster/)

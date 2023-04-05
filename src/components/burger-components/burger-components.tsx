@@ -5,20 +5,21 @@ import { deleteBun } from '../../services/actions/draggable-ingredients';
 import { useDrop } from "react-dnd";
 import { increaseCounter, decreaseBunCounter, decreaseCounter } from '../../services/actions/ingredients';
 import { getDraggableIngredient } from '../../services/actions/draggable-ingredients';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { IDragIngredient, TIngredientList } from '../../utils/data';
+import { useDispatch, useSelector } from '../../hooks/hooks';
+import { TDragItem, TIngredients } from '../../types/data';
 
 export default function BurgerComponents() {
-    const dispatch = useAppDispatch();
-    const dragIngredients = useAppSelector<TIngredientList>(state => state.ingredientList);
+    const dispatch = useDispatch();
+    const { items, bun } = useSelector(state => state.ingredientList);
 
-    const [, drop] = useDrop<TIngredientList>({
+    const [, drop] = useDrop<TDragItem & TIngredients>({
         accept: "BurgerConstructor",
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
         drop(item) {
-            item.typeDragElement === "bun" ?
+
+            item.type === "bun" ?
                 dispatch(getDraggableIngredient(item)) &&
                 dispatch(decreaseBunCounter(item)) &&
                 dispatch(increaseCounter(item))
@@ -30,25 +31,25 @@ export default function BurgerComponents() {
 
     const onDelete = () => {
         dispatch(deleteBun())
-        dispatch(decreaseCounter(dragIngredients.bun._id))
+        bun && dispatch(decreaseCounter(bun._id))
     }
 
     return (
         <div className={style.BurgerComponents} ref={drop}>
-            {dragIngredients.bun._id &&
+            {bun &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-10 mb-4'
+                        extraClass='ml-8 mb-4'
                         type={"top"}
-                        text={`${dragIngredients.bun.name}${' '}${'(верх)'}`}
-                        price={dragIngredients.bun.price}
-                        thumbnail={dragIngredients.bun.image_mobile}
+                        text={`${bun.name}${' '}${'(верх)'}`}
+                        price={bun.price}
+                        thumbnail={bun.image_mobile}
                         handleClose={onDelete}
                     />
                 </div>
             }
             <ul className={style.BurgerCenter}>
-                {dragIngredients.items.map((element: IDragIngredient) =>
+                {items && items.map((element: TDragItem) =>
                     element.type !== 'bun' &&
                     <Slices
                         element={element}
@@ -56,15 +57,15 @@ export default function BurgerComponents() {
                     />
                 )}
             </ul>
-            {dragIngredients.bun._id &&
+            {bun &&
                 <div>
                     <ConstructorElement
-                        extraClass='ml-10 mt-4'
+                        extraClass='ml-8 mt-4'
                         type={"bottom"}
                         isLocked={true}
-                        text={`${dragIngredients.bun.name}${' '}${'(низ)'}`}
-                        price={dragIngredients.bun.price}
-                        thumbnail={dragIngredients.bun.image_mobile}
+                        text={`${bun.name}${' '}${'(низ)'}`}
+                        price={bun.price}
+                        thumbnail={bun.image_mobile}
                     />
                 </div>
             }

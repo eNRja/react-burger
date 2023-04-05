@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import "./modal-content.module.css";
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { useSelector } from '../../hooks/hooks';
 
 export default function ModalContent() {
-  const dispatch = useAppDispatch();
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useAppSelector(state => state.ingredient);
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredient);
   const { ingredientId } = useParams();
-  const findElement = ingredients && ingredients.find(function (elem: { _id: string | undefined; }) {
+
+  const element = ingredients.find(elem => {
     return elem._id === ingredientId;
   })
 
@@ -18,7 +18,7 @@ export default function ModalContent() {
   } else {
     return (
       <>
-        {findElement && <IngredientDetails element={findElement} />}
+        {element && <IngredientDetails element={element} />}
       </>
     )
   }

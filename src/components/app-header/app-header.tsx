@@ -10,9 +10,10 @@ export default function AppHeader() {
     const isIndex = pathname === "/";
     const isLogin = pathname === "/login";
     const isProfile = pathname === "/profile";
+    const isProfileOrders = pathname === "/profile/orders";
     const isRegister = pathname === "/register";
     const isResetPass = pathname === "/reset-password";
-    const isOrder = pathname === "/profile/orders"
+    const isFeed = pathname === "/feed"
 
     return (
         <header className={style.AppHeader}>
@@ -21,12 +22,12 @@ export default function AppHeader() {
                     <NavLink to="/" className={style.active}>
                         <AppHeaderButton buttonIcon={BurgerIcon} buttonText="Конструктор" buttonDefault={isIndex} />
                     </NavLink>
-                    <NavLink to="profile/orders" className={style.active}>
-                        <AppHeaderButton buttonIcon={ListIcon} buttonText="Лента заказов" buttonDefault={isOrder} />
+                    <NavLink to="/feed" className={style.active}>
+                        <AppHeaderButton buttonIcon={ListIcon} buttonText="Лента заказов" buttonDefault={isFeed} />
                     </NavLink>
                 </div>
-                <NavLink to="/profile" className={style.active}>
-                    <AppHeaderButton buttonIcon={ProfileIcon} buttonText="Личный кабинет" buttonDefault={isLogin || isProfile || isRegister || isResetPass} />
+                <NavLink to="/profile/orders" className={style.active}>
+                    <AppHeaderButton buttonIcon={ProfileIcon} buttonText="Личный кабинет" buttonDefault={isLogin || isProfile || isRegister || isResetPass || isProfileOrders} />
                 </NavLink>
                 <NavLink to="/" className={style.AppHeaderLogo}>
                     <Logo />

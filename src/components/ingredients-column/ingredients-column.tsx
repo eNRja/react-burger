@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import IngredientItem from '../ingredient-item/ingredient-item';
 import style from './ingredients-column.module.css';
-import { IIngredient } from '../../utils/data';
+import { TIngredients } from '../../types/data';
 
 const IngredientsColumn = ({ ingredients, columnTitle, setCurrent, tabRef }:
-     {ingredients: IIngredient[], columnTitle: string, setCurrent: CallableFunction, tabRef: React.RefObject<HTMLHeadingElement>}) => {
+    { ingredients: TIngredients[], columnTitle: string, setCurrent: CallableFunction, tabRef: React.RefObject<HTMLHeadingElement> }) => {
 
     const translateTitle = columnTitle === "Булки" ?
         "bun" : (columnTitle === "Соусы" ? "sauce" : "main");
-        const idTitle = columnTitle === "Булки" ?
+    const idTitle = columnTitle === "Булки" ?
         "idOne" : (columnTitle === "Соусы" ? "idTwo" : "idThree");
 
     const [mainRef, mainInView] = useInView({

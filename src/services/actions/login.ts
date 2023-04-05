@@ -1,13 +1,33 @@
 import { postLoginApi, getAuth, postRefreshToken, postLogout, postUpdateUser } from '../../api/api';
-import { getCookie, setCookie } from '../../utils/cookie';
+import { TAppDispatch } from '../../types';
+import { TUser } from '../../types/data';
+import { setCookie } from '../../utils/cookie';
+import {
+    USER_SUCCEESS,
+    AUTH_CHECKED,
+    USER_UPDATE
+} from '../constants';
 
-export const USER_SUCCEESS = 'USER_SUCCEESS';
-export const AUTH_CHECKED = 'AUTH_CHECKED';
-export const REFRESH_TOKEN = 'REFRESH_TOKEN';
-export const USER_UPDATE = 'USER_UPDATE';
+export interface IUserSuccessAction {
+    readonly type: typeof USER_SUCCEESS;
+    readonly payload: TUser | null;
+    readonly password?: string
+}
+export interface IAuthCheckedAction {
+    readonly type: typeof AUTH_CHECKED;
+}
+export interface IUserUpdateAction {
+    readonly type: typeof USER_UPDATE;
+    readonly payload: TUser | null;
+}
 
-export function requestLogin(email, password) {
-    return function (dispatch) {
+export type TGetUserActions =
+    | IUserSuccessAction
+    | IAuthCheckedAction
+    | IUserUpdateAction
+
+export function requestLogin(email: string, password: string) {
+    return function (dispatch: TAppDispatch) {
         postLoginApi(email, password)
             .then((data) => {
                 if (data.success) {
@@ -29,12 +49,8 @@ export function requestLogin(email, password) {
     }
 }
 
-export const checkAuth = () => (dispatch) => {
-    dispatch(getUserWithRefresh());
-};
-
 function getUser() {
-    return function (dispatch) {
+    return function (dispatch: TAppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {
@@ -51,8 +67,8 @@ function getUser() {
     }
 }
 
-function getUserWithRefresh() {
-    return function (dispatch) {
+export function getUserWithRefresh() {
+    return function (dispatch: TAppDispatch) {
         getAuth()
             .then((data) => {
                 if (data.success) {
@@ -64,29 +80,27 @@ function getUserWithRefresh() {
                 }
             })
             .catch(err => {
-
                 if (err.message === "jwt expired") {
-                    postRefreshToken(`${getCookie("refreshToken")}`)
+                    postRefreshToken()
                         .then((data) => {
-
                             const authToken = data.accessToken.split('Bearer ')[1];
                             if (authToken) {
                                 setCookie('token', authToken, { secure: true, 'max-age': 20000, SameSite: "Lax" });
                                 setCookie('refreshToken', data.refreshToken, { secure: true, SameSite: "Lax" });
                             }
-                            return dispatch(getUser());
+                            getUser();
                         })
                 } else {
-                    return Promise.reject(`Error: ${err}`);
+                    dispatch({ type: AUTH_CHECKED });
                 }
             })
     }
 }
 
 export function requestLogout() {
-    return function (dispatch) {
+    return function (dispatch: TAppDispatch) {
 
-        postLogout(`${getCookie("refreshToken")}`)
+        postLogout()
             .then((data) => {
                 if (data.success) {
                     dispatch({
@@ -102,8 +116,8 @@ export function requestLogout() {
     }
 }
 
-export function requestUpdateUser(name, email, password) {
-    return function (dispatch) {
+export function requestUpdateUser(name: string, email: string, password: string) {
+    return function (dispatch: TAppDispatch) {
         postUpdateUser(name, email, password)
             .then((data) => {
                 if (data.success) {

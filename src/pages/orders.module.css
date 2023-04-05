@@ -1,0 +1,26 @@
+.OrdersMain {
+    display: flex;
+    min-width: 1280px;
+}
+
+.Orders {
+    width: 876px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height: 920px;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+    margin-top: 42px;
+    margin-left: 48px;
+}
+
+/* WebKit and Chromiums */
+.Orders::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.Orders::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}

@@ -1,0 +1,64 @@
+.Feed {
+    display: flex;
+    justify-content: space-between;
+    width: 1240px;
+}
+
+.FeedСaption {
+    width: 1240px;
+    align-items: flex-start;
+}
+
+.FeedOrders {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    overflow-y: scroll;
+    height: 810px;
+    scrollbar-color: #8585AD #2F2F37;
+    scrollbar-width: thin;
+}
+
+/* WebKit and Chromiums */
+.FeedOrders::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.FeedOrders::-webkit-scrollbar-thumb {
+    background: #8585AD;
+}
+
+.FeedRightColumn {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+}
+
+.FeedRightColumnOrders {
+    display: flex;
+
+}
+
+.FeedRightColumnOrdersReady {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 280px;
+    margin-left: 16px;
+    height: 226px;
+}
+
+.FeedRightColumnOrdersReadyNumber:nth-child(7) {
+    margin-top: 54px;
+}
+
+.FeedRightColumnOrdersInWork {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    width: 280px;
+    margin-left: 16px;
+    height: 226px;
+    margin-left: 40px;
+}

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import style from './forgot-password.module.css';
 import { checkProtectResetPage, requestForgotPassword } from '../services/actions/forgot-reset-password';
-import { useAppDispatch } from '../hooks/hooks';
+import { useDispatch } from '../hooks/hooks';
 
 export function ForogotPasswordPage() {
-    const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState('')
 
