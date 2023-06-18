@@ -8,3 +8,5 @@
 *  React-Redux
 
 * [ссылка на проект](https://cosmo-burger.nomoredomains.monster/)
+
+* [запасная ссылка](https://enrja.github.io/react-burger/)
