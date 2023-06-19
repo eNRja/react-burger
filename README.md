@@ -1,12 +1,11 @@
 # Проект: React-Burger
-* Данный проект создан и структурирован на React.
 
-* Что было использовано:
-*  HTML
-*  CSS
-*  JavaScript
-*  React-Redux
+- Данный проект создан и структурирован на React.
 
-* [ссылка на проект](https://cosmo-burger.nomoredomains.monster/)
+- Что было использовано:
+- HTML
+- CSS
+- JavaScript
+- React-Redux
 
-* [запасная ссылка](https://enrja.github.io/react-burger/)
+- [ссылка на проект](https://enrja.github.io/react-burger/)
