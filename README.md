@@ -1,11 +1,27 @@
-# Проект: React-Burger
+# Stellar Burgers
+## SPA-приложение космической бургерной
 
-- Данный проект создан и структурирован на React.
+## Стек
+- TypeScript
+- React
+- Redux(Redux Toolkit)
 
-- Что было использовано:
-- HTML
-- CSS
-- JavaScript
-- React-Redux
+## Тесты
+- Jest tests
+- Cypress tests
 
-- [ссылка на проект](https://enrja.github.io/react-burger/)
+### Особенности 
+- Регистрация / Авторизация
+- Восстановление / Сброс пароля
+- Лента заказов (общая / индивидуальная)
+- DnD при сборке бургера
+
+### Ссылки
+- [Ссылка на проект](https://enrja.github.io/react-burger/)
+
+### Запук проекта
+
+#### `npm install`
+
+#### `npm start`
+
